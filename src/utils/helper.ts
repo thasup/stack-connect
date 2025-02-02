@@ -1,16 +1,6 @@
+import { GameData } from "@/types/feelinks";
+
 const GAME_DATA_KEY = "game-data";
-
-interface Participant {
-  name: string;
-  score: {
-    correct: number;
-    wrong: number;
-  };
-}
-
-interface GameData {
-  participants: Participant[];
-}
 
 export const getGameData = (): GameData => {
   const storedData = localStorage.getItem(GAME_DATA_KEY);

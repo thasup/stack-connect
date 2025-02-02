@@ -13,8 +13,8 @@ import {
   FormHelperText
 } from "@mui/material";
 import { getGameData, updateScore } from "@/utils/helper";
-import { Emotion } from "@/types/feelinks";
-import SendIcon from '@mui/icons-material/Send';
+import { Emotion, Participant } from "@/types/feelinks";
+import SendIcon from "@mui/icons-material/Send";
 
 const allPositiveEmotions = [
   { name: "Love", emoji: "❤️" },
@@ -38,24 +38,19 @@ const allNegativeEmotions = [
   { name: "Frustration", emoji: "😤" }
 ];
 
-
 interface EmotionContainerProps {
   category: string;
+  participants: Participant[];
+  onParticipantChange: (participants: Participant[]) => void;
 }
 
-interface Participant {
-  name: string;
-  score: {
-    correct: number;
-    wrong: number;
-  };
-  answer?: string;
-}
-
-const EmotionContainer = ({ category }: EmotionContainerProps) => {
+const EmotionContainer = ({
+  category,
+  participants,
+  onParticipantChange
+}: EmotionContainerProps) => {
   const [positiveEmotions, setPositiveEmotions] = useState<Emotion[]>([]);
   const [negativeEmotions, setNegativeEmotions] = useState<Emotion[]>([]);
-  const [participants, setParticipants] = useState<Participant[]>([]);
 
   const [selectedParticipant, setSelectedParticipant] = useState({
     isFocused: false,
@@ -104,7 +99,7 @@ const EmotionContainer = ({ category }: EmotionContainerProps) => {
       setSelectedParticipant({
         isFocused: true,
         value: selectedParticipant.value
-      })
+      });
       setSelectedEmotion({
         isFocused: true,
         value: selectedEmotion.value
@@ -121,7 +116,7 @@ const EmotionContainer = ({ category }: EmotionContainerProps) => {
       }
       return participant;
     });
-    setParticipants(updatedParticipants);
+    onParticipantChange(updatedParticipants);
     setSelectedParticipant({
       isFocused: false,
       value: ""
@@ -139,16 +134,24 @@ const EmotionContainer = ({ category }: EmotionContainerProps) => {
         return {
           ...participant,
           answer: "",
+          score: {
+            ...participant.score,
+            correct: participant.score.correct + 1
+          }
         };
       } else {
         updateScore(participant.name, false);
         return {
           ...participant,
           answer: "",
+          score: {
+            ...participant.score,
+            wrong: participant.score.wrong + 1
+          }
         };
       }
     });
-    setParticipants(updatedParticipants);
+    onParticipantChange(updatedParticipants);
   }
 
   function handleCorrectEmotionChange(emotion: string) {
@@ -169,109 +172,135 @@ const EmotionContainer = ({ category }: EmotionContainerProps) => {
     setNegativeEmotions(negative);
 
     const gameData = getGameData();
-    setParticipants(gameData.participants);
+    onParticipantChange(gameData.participants);
   }, [category]);
 
   return (
-    <Container maxWidth="lg" sx={{ mt: 4 }}>
-      <Stack spacing={2}>
-        {/* Emotion Panel */}
-        <Container
-          sx={{
-            mt: 4,
-            p: 4,
-            border: "1px solid white",
-            borderRadius: "8px",
-            minHeight: "200px"
-          }}
-        >
-          <Stack direction="row" spacing={1}>
-            {/* Using Stack to arrange buttons in two columns */}
-            <Stack direction="column" spacing={1} flexGrow={1}>
-              {positiveEmotions.map((emotion, index) => (
-                <Button
-                  key={index}
-                  variant="outlined"
-                  color="success"
-                  fullWidth
-                  onClick={() => handleCorrectEmotionChange(emotion.name)}
-                >
-                  <Stack direction="row" spacing={1} alignItems="center">
-                    <span>{emotion.emoji} {emotion.name}</span>
-                    <Chip label={getEmotionCount(emotion.name)} color="success" variant="filled" size="small" />
-                  </Stack>
-                </Button>
-              ))}
-            </Stack>
-            <Stack direction="column" spacing={1} flexGrow={1}>
-              {negativeEmotions.map((emotion, index) => (
-                <Button
-                  key={index}
-                  variant="outlined"
-                  color="error"
-                  fullWidth
-                  onClick={() => handleCorrectEmotionChange(emotion.name)}
-                >
-                  <Stack direction="row" spacing={1} alignItems="center">
-                    <span>{emotion.emoji} {emotion.name}</span>
-                    <Chip label={getEmotionCount(emotion.name)} color="error" variant="filled" size="small" />
-                  </Stack>
-                </Button>
-              ))}
-            </Stack>
-          </Stack>
-        </Container>
-
-        {/* Paticipant Panel */}
-        <Container sx={{ mt: 4, p: 4, border: "1px solid white", borderRadius: "8px" }}>
-          <Stack direction="row" spacing={2} justifyContent="center">
-            <FormControl sx={{ m: 1, minWidth: 200 }} size="small" error={selectedParticipant.isFocused && selectedParticipant.value === ""}>
-              <InputLabel id="participant-select-label">Participants</InputLabel>
-              <Select
-                labelId="participant-select-label"
-                id="participant-select"
-                value={selectedParticipant.value}
-                label="Participant"
-                onChange={handleParticipantChange}
-                onFocus={() => setSelectedParticipant({ isFocused: true, value: selectedParticipant.value })}
-                onBlur={() => setSelectedParticipant({ isFocused: false, value: selectedParticipant.value })}
+    <Stack spacing={2}>
+      {/* Emotion Panel */}
+      <Container
+        sx={{
+          mt: 4,
+          p: 4,
+          border: "1px solid white",
+          borderRadius: "8px",
+          minHeight: "200px"
+        }}
+      >
+        <Stack direction="row" spacing={1}>
+          {/* Using Stack to arrange buttons in two columns */}
+          <Stack direction="column" spacing={1} flexGrow={1}>
+            {positiveEmotions.map((emotion, index) => (
+              <Button
+                key={index}
+                variant="outlined"
+                color="success"
+                fullWidth
+                onClick={() => handleCorrectEmotionChange(emotion.name)}
               >
-                {participants.map((participant) => (
-                  <MenuItem key={participant.name} value={participant.name}>
-                    {participant.name}
-                  </MenuItem>
-                ))}
-              </Select>
-              <FormHelperText>Required</FormHelperText>
-            </FormControl>
-
-            <FormControl sx={{ m: 1, minWidth: 200 }} size="small" error={selectedEmotion.isFocused && selectedEmotion.value === ""}>
-              <InputLabel id="emotion-select-label">Emotions</InputLabel>
-              <Select
-                labelId="emotion-select-label"
-                id="emotion-select"
-                value={selectedEmotion.value}
-                label="Emotions"
-                onChange={handleEmotionChange}
-                onFocus={() => setSelectedEmotion({ isFocused: true, value: selectedEmotion.value })}
-                onBlur={() => setSelectedEmotion({ isFocused: false, value: selectedEmotion.value })}
-              >
-                {[...positiveEmotions, ...negativeEmotions].map((emotion) => (
-                  <MenuItem key={emotion.name} value={emotion.name}>
-                    {emotion.name}
-                  </MenuItem>
-                ))}
-              </Select>
-              <FormHelperText>Required</FormHelperText>
-            </FormControl>
-
-            <Button variant="contained" onClick={handleSubmit}>
-              <SendIcon />
-            </Button>
+                <Stack direction="row" spacing={1} alignItems="center">
+                  <span>
+                    {emotion.emoji} {emotion.name}
+                  </span>
+                  <Chip
+                    label={getEmotionCount(emotion.name)}
+                    color="success"
+                    variant="filled"
+                    size="small"
+                  />
+                </Stack>
+              </Button>
+            ))}
           </Stack>
-        </Container>
-      </Stack>
-    </Container>
+          <Stack direction="column" spacing={1} flexGrow={1}>
+            {negativeEmotions.map((emotion, index) => (
+              <Button
+                key={index}
+                variant="outlined"
+                color="error"
+                fullWidth
+                onClick={() => handleCorrectEmotionChange(emotion.name)}
+              >
+                <Stack direction="row" spacing={1} alignItems="center">
+                  <span>
+                    {emotion.emoji} {emotion.name}
+                  </span>
+                  <Chip
+                    label={getEmotionCount(emotion.name)}
+                    color="error"
+                    variant="filled"
+                    size="small"
+                  />
+                </Stack>
+              </Button>
+            ))}
+          </Stack>
+        </Stack>
+      </Container>
+
+      {/* Paticipant Panel */}
+      <Container
+        sx={{ mt: 4, p: 4, border: "1px solid white", borderRadius: "8px", minHeight: "155px" }}
+      >
+        <Stack direction="row" spacing={2} justifyContent="center">
+          <FormControl
+            sx={{ m: 1, minWidth: 200 }}
+            size="small"
+            error={selectedParticipant.isFocused && selectedParticipant.value === ""}
+          >
+            <InputLabel id="participant-select-label">Participants</InputLabel>
+            <Select
+              labelId="participant-select-label"
+              id="participant-select"
+              value={selectedParticipant.value}
+              label="Participant"
+              onChange={handleParticipantChange}
+              onFocus={() =>
+                setSelectedParticipant({ isFocused: true, value: selectedParticipant.value })
+              }
+              onBlur={() =>
+                setSelectedParticipant({ isFocused: false, value: selectedParticipant.value })
+              }
+            >
+              {participants.map((participant) => (
+                <MenuItem key={participant.name} value={participant.name}>
+                  {participant.name}
+                </MenuItem>
+              ))}
+            </Select>
+            <FormHelperText>Required</FormHelperText>
+          </FormControl>
+
+          <FormControl
+            sx={{ m: 1, minWidth: 200 }}
+            size="small"
+            error={selectedEmotion.isFocused && selectedEmotion.value === ""}
+          >
+            <InputLabel id="emotion-select-label">Emotions</InputLabel>
+            <Select
+              labelId="emotion-select-label"
+              id="emotion-select"
+              value={selectedEmotion.value}
+              label="Emotions"
+              onChange={handleEmotionChange}
+              onFocus={() => setSelectedEmotion({ isFocused: true, value: selectedEmotion.value })}
+              onBlur={() => setSelectedEmotion({ isFocused: false, value: selectedEmotion.value })}
+            >
+              {[...positiveEmotions, ...negativeEmotions].map((emotion) => (
+                <MenuItem key={emotion.name} value={emotion.name}>
+                  {emotion.name}
+                </MenuItem>
+              ))}
+            </Select>
+            <FormHelperText>Required</FormHelperText>
+          </FormControl>
+
+          <Button variant="contained" onClick={handleSubmit}>
+            <SendIcon />
+          </Button>
+        </Stack>
+      </Container>
+    </Stack>
   );
 };
 

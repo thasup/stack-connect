@@ -8,7 +8,6 @@ import Checkbox from "@mui/material/Checkbox";
 import Divider from "@mui/material/Divider";
 import FormLabel from "@mui/material/FormLabel";
 import FormControl from "@mui/material/FormControl";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import Link from "@mui/material/Link";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
@@ -17,8 +16,8 @@ import ForgotPassword from "@/app/feelinks/components/ForgotPassword";
 import { GoogleIcon, FacebookIcon, SitemarkIcon } from "@/app/feelinks/components/CustomIcons";
 
 export default function SignInCard() {
-  const [emailError, setEmailError] = React.useState(false);
-  const [emailErrorMessage, setEmailErrorMessage] = React.useState("");
+  const [nameError, setNameError] = React.useState(false);
+  const [nameErrorMessage, setNameErrorMessage] = React.useState("");
   const [passwordError, setPasswordError] = React.useState(false);
   const [passwordErrorMessage, setPasswordErrorMessage] = React.useState("");
   const [open, setOpen] = React.useState(false);
@@ -32,7 +31,7 @@ export default function SignInCard() {
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    if (emailError || passwordError) {
+    if (nameError || passwordError) {
       event.preventDefault();
       return;
     }
@@ -50,12 +49,12 @@ export default function SignInCard() {
     let isValid = true;
 
     if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
-      setEmailError(true);
-      setEmailErrorMessage("Please enter a valid email address.");
+      setNameError(true);
+      setNameErrorMessage("Please enter a valid email address.");
       isValid = false;
     } else {
-      setEmailError(false);
-      setEmailErrorMessage("");
+      setNameError(false);
+      setNameErrorMessage("");
     }
 
     if (!password.value || password.value.length < 6) {
@@ -101,7 +100,7 @@ export default function SignInCard() {
         variant="h4"
         sx={{ width: "100%", fontSize: "clamp(2rem, 10vw, 2.15rem)" }}
       >
-        Sign in
+        Register
       </Typography>
       <Box
         component="form"
@@ -110,23 +109,23 @@ export default function SignInCard() {
         sx={{ display: "flex", flexDirection: "column", width: "100%", gap: 2 }}
       >
         <FormControl>
-          <FormLabel htmlFor="email">Email</FormLabel>
+          <FormLabel htmlFor="name">Name</FormLabel>
           <TextField
-            error={emailError}
-            helperText={emailErrorMessage}
-            id="email"
-            type="email"
-            name="email"
-            placeholder="your@email.com"
-            autoComplete="email"
+            error={nameError}
+            helperText={nameErrorMessage}
+            id="name"
+            type="name"
+            name="name"
+            placeholder="John Doe"
+            autoComplete="name"
             autoFocus
             required
             fullWidth
             variant="outlined"
-            color={emailError ? "error" : "primary"}
+            color={nameError ? "error" : "primary"}
           />
         </FormControl>
-        <FormControl>
+        {/* <FormControl>
           <Box sx={{ display: "flex", justifyContent: "space-between" }}>
             <FormLabel htmlFor="password">Password</FormLabel>
             <Link
@@ -153,16 +152,16 @@ export default function SignInCard() {
             variant="outlined"
             color={passwordError ? "error" : "primary"}
           />
-        </FormControl>
-        <FormControlLabel
+        </FormControl> */}
+        {/* <FormControlLabel
           control={<Checkbox value="remember" color="primary" />}
           label="Remember me"
         />
-        <ForgotPassword open={open} handleClose={handleClose} />
+        <ForgotPassword open={open} handleClose={handleClose} /> */}
         <Button type="submit" fullWidth variant="contained" onClick={validateInputs}>
-          Sign in
+          Add
         </Button>
-        <Typography sx={{ textAlign: "center" }}>
+        {/* <Typography sx={{ textAlign: "center" }}>
           Don&apos;t have an account?{" "}
           <span>
             <Link
@@ -173,10 +172,10 @@ export default function SignInCard() {
               Sign up
             </Link>
           </span>
-        </Typography>
+        </Typography> */}
       </Box>
-      <Divider>or</Divider>
-      <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+      {/* <Divider>or</Divider> */}
+      {/* <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
         <Button
           fullWidth
           variant="outlined"
@@ -193,7 +192,7 @@ export default function SignInCard() {
         >
           Sign in with Facebook
         </Button>
-      </Box>
+      </Box> */}
     </MuiCard>
   );
 }

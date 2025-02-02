@@ -2,9 +2,9 @@
 import React, { useEffect, useState } from "react";
 import { Container, Stack, Typography, Button, CircularProgress } from "@mui/material";
 import EmotionContainer from "../components/EmotionContainer";
-import { setGameData } from "@/utils/helper";
-
-const participants = ["P'First", "N'Jane", "MM", "JJ", "CS", "JN", "IR", "SJ", "PA"];
+import { getGameData } from "@/utils/helper";
+import StatsContainer from "../components/StatsContainer";
+import { Participant } from "@/types/feelinks";
 
 const categories = ["Family", "Friend", "School", "Social", "Work", "Entertainment"];
 
@@ -17,23 +17,23 @@ export default function BoardPage() {
   );
   const [isLoading, setIsLoading] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("");
-
-  const modifiedGameData = participants.map((participant) => {
-    return {
-      name: participant,
-      score: {
-        correct: 0,
-        wrong: 0
-      }
-    };
-  });
+  const [participants, setParticipants] = useState<Participant[]>([]);
 
   function handleClickCategory(category: string) {
-    if (!selectedCategory) {
-      setGameData({ participants: modifiedGameData });
-    }
     setSelectedCategory(category);
   }
+
+  useEffect(() => {
+    // retrieve participants from local storage
+    const storedData = getGameData();
+    const modifiedGameData = storedData.participants.map((participant) => {
+      return {
+        name: participant.name,
+        score: participant.score
+      };
+    });
+    setParticipants(modifiedGameData);
+  }, []);
 
   useEffect(() => {
     if (selectedCategory) {
@@ -142,17 +142,18 @@ export default function BoardPage() {
           </Stack>
 
           {/* Right Section */}
-          <Stack width="50%" spacing={1}>
-            <EmotionContainer category={selectedCategory} />
+          <Stack width="50%" spacing={2}>
+            <EmotionContainer
+              category={selectedCategory}
+              participants={participants}
+              onParticipantChange={setParticipants}
+            />
           </Stack>
         </Stack>
 
         {/* Bottom Section */}
-        <Stack spacing={1}>
-          <Typography variant="h6">Bottom Section</Typography>
-          <Button variant="contained" fullWidth>
-            Bottom Action
-          </Button>
+        <Stack spacing={2}>
+          <StatsContainer participants={participants} />
         </Stack>
       </Stack>
     </Container>
