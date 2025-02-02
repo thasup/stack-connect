@@ -1,4 +1,3 @@
-import ButtonUsage from "@/components/ButtonUsage";
 import Image from "next/image";
 
 export default function Home() {
@@ -96,7 +95,6 @@ export default function Home() {
           />
           Go to nextjs.org →
         </a>
-      <ButtonUsage />
       </footer>
     </div>
   );
