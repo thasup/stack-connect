@@ -13,7 +13,7 @@ export default function BoardPage() {
   const secondCategoryRow = categories.slice(3, 6);
 
   const [generatedQuestion, setGeneratedQuestion] = useState(
-    "Select category to generate question"
+    "Please select a category to generate question."
   );
   const [isLoading, setIsLoading] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -30,35 +30,35 @@ export default function BoardPage() {
 
   function handleClickCategory(category: string) {
     if (!selectedCategory) {
-      setGameData({participants: modifiedGameData});
+      setGameData({ participants: modifiedGameData });
     }
     setSelectedCategory(category);
   }
 
   useEffect(() => {
     if (selectedCategory) {
-      try {
-        setIsLoading(true);
-        fetch("http://localhost:9999/v1/stack-connect", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-          },
-          body: new URLSearchParams({
-            category: selectedCategory
-          })
+      setIsLoading(true);
+      fetch(process.env.NEXT_PUBLIC_AI_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: new URLSearchParams({
+          category: selectedCategory
         })
-          .then((response) => response.json())
-          .then((response) => {
-            setGeneratedQuestion(response.data);
-            setIsLoading(false);
-          });
-      } catch (err) {
-        console.error(err);
-        setIsLoading(false);
-      } finally {
-        setSelectedCategory("");
-      }
+      })
+        .then((response) => response.json())
+        .then((response) => {
+          setGeneratedQuestion(response.data);
+        })
+        .catch((err) => {
+          setGeneratedQuestion("Something went wrong, please try again.");
+          console.error(err);
+        })
+        .finally(() => {
+          setIsLoading(false);
+          setSelectedCategory("");
+        });
     }
   }, [selectedCategory]);
 
@@ -68,7 +68,11 @@ export default function BoardPage() {
         {/* Header Section */}
         <Stack spacing={1}>
           <Typography variant="h5">Welcome to Feelinks AI – A Game of Emotions! 🥰</Typography>
-          <Typography variant="body1">Explore your emotions in a fun and engaging way. Each round, you&apos;ll encounter unique scenarios and choose how you&apos;d feel. Play with friends, discuss your choices, and discover new perspectives!</Typography>
+          <Typography variant="body1">
+            Explore your emotions in a fun and engaging way. Each round, you&apos;ll encounter
+            unique scenarios and choose how you&apos;d feel. Play with friends, discuss your
+            choices, and discover new perspectives!
+          </Typography>
         </Stack>
 
         {/* Main Content Area */}
