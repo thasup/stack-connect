@@ -2,6 +2,9 @@
 import React, { useEffect, useState } from "react";
 import { Container, Stack, Typography, Button, CircularProgress } from "@mui/material";
 import EmotionContainer from "../components/EmotionContainer";
+import { setGameData } from "@/utils/helper";
+
+const participants = ["P'First", "N'Jane", "MM", "JJ", "CS", "JN", "IR", "SJ", "PA"];
 
 const categories = ["Family", "Friend", "School", "Social", "Work", "Travel"];
 
@@ -15,8 +18,19 @@ export default function BoardPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("");
 
+  const modifiedGameData = participants.map((participant) => {
+    return {
+      name: participant,
+      score: {
+        correct: 0,
+        wrong: 0
+      }
+    };
+  });
+
   useEffect(() => {
     if (selectedCategory) {
+      setGameData({participants: modifiedGameData});
       try {
         setIsLoading(true);
         fetch("http://localhost:9999/v1/stack-connect", {
