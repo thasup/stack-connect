@@ -28,9 +28,15 @@ export default function BoardPage() {
     };
   });
 
+  function handleClickCategory(category: string) {
+    if (!selectedCategory) {
+      setGameData({participants: modifiedGameData});
+    }
+    setSelectedCategory(category);
+  }
+
   useEffect(() => {
     if (selectedCategory) {
-      setGameData({participants: modifiedGameData});
       try {
         setIsLoading(true);
         fetch("http://localhost:9999/v1/stack-connect", {
@@ -60,14 +66,14 @@ export default function BoardPage() {
       <Stack spacing={2}>
         {/* Header Section */}
         <Stack spacing={1}>
-          <Typography variant="h5">Header Section</Typography>
-          <Typography variant="body1">Some text here...</Typography>
+          <Typography variant="h5">Welcome to Feelinks AI – A Game of Emotions! 🥰</Typography>
+          <Typography variant="body1">Explore your emotions in a fun and engaging way. Each round, you&apos;ll encounter unique scenarios and choose how you&apos;d feel. Play with friends, discuss your choices, and discover new perspectives!</Typography>
         </Stack>
 
         {/* Main Content Area */}
         <Stack direction="row" spacing={2}>
-          {/* Left Buttons */}
-          <Stack flexGrow={1} spacing={1}>
+          {/* Left Section */}
+          <Stack width="50%" spacing={2}>
             <Container
               sx={{
                 mt: 4,
@@ -102,7 +108,7 @@ export default function BoardPage() {
                         variant="outlined"
                         fullWidth
                         sx={{ flex: 1 }}
-                        onClick={() => setSelectedCategory(category)}
+                        onClick={() => handleClickCategory(category)}
                       >
                         {category}
                       </Button>
@@ -117,7 +123,7 @@ export default function BoardPage() {
                         variant="outlined"
                         fullWidth
                         sx={{ flex: 1 }}
-                        onClick={() => setSelectedCategory(category)}
+                        onClick={() => handleClickCategory(category)}
                       >
                         {category}
                       </Button>
@@ -128,8 +134,8 @@ export default function BoardPage() {
             </Container>
           </Stack>
 
-          {/* Right Sidebar */}
-          <Stack flexGrow={1} spacing={1}>
+          {/* Right Section */}
+          <Stack width="50%" spacing={1}>
             <EmotionContainer category={selectedCategory} />
           </Stack>
         </Stack>

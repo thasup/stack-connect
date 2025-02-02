@@ -28,14 +28,19 @@ export const addParticipant = (name: string) => {
 };
 
 export const updateScore = (participantName: string, correct: boolean) => {
-  const gameData = getGameData();
-  const participant = gameData.participants.find((person) => person.name === participantName);
-  if (participant) {
-    if (correct) {
-      participant.score.correct++;
-    } else {
-      participant.score.wrong++;
+  const { participants } = getGameData();
+  const updatedParticipants = participants.map((participant) => {
+    if (participant.name === participantName) {
+      const x = {
+        ...participant,
+        score: {
+          ...participant.score,
+          [correct ? "correct" : "wrong"]: participant.score[correct ? "correct" : "wrong"] + 1,
+        },
+      };
+      return x;
     }
-    setGameData(gameData);
-  }
+    return participant;
+  });
+  setGameData({ participants: updatedParticipants });
 };

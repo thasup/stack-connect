@@ -8,31 +8,36 @@ import {
   FormControl,
   InputLabel,
   Select,
-  MenuItem
+  MenuItem,
+  Chip,
+  FormHelperText
 } from "@mui/material";
-import { getGameData, setGameData, updateScore } from "@/utils/helper";
+import { getGameData, updateScore } from "@/utils/helper";
+import { Emotion } from "@/types/feelinks";
+import SendIcon from '@mui/icons-material/Send';
 
 const allPositiveEmotions = [
-  "Happiness",
-  "Love",
-  "Excitement",
-  "Pride",
-  "Gratitude",
-  "Confidence",
-  "Amusement",
-  "Hope"
+  { name: "Love", emoji: "❤️" },
+  { name: "Excitement", emoji: "🤩" },
+  { name: "Pride", emoji: "🏆" },
+  { name: "Confidence", emoji: "💪" },
+  { name: "Happiness", emoji: "😊" },
+  { name: "Gratitude", emoji: "🙏" },
+  { name: "Hope", emoji: "🌟" },
+  { name: "Relief", emoji: "😌" }
 ];
 
 const allNegativeEmotions = [
-  "Sadness",
-  "Anger",
-  "Fear",
-  "Frustration",
-  "Guilt",
-  "Loneliness",
-  "Jealousy",
-  "Disgust"
+  { name: "Anger", emoji: "😡" },
+  { name: "Disgust", emoji: "🤢" },
+  { name: "Loneliness", emoji: "😔" },
+  { name: "Sadness", emoji: "😢" },
+  { name: "Fear", emoji: "😨" },
+  { name: "Guilt", emoji: "😞" },
+  { name: "Jealousy", emoji: "🙄" },
+  { name: "Frustration", emoji: "😤" }
 ];
+
 
 interface EmotionContainerProps {
   category: string;
@@ -48,26 +53,31 @@ interface Participant {
 }
 
 const EmotionContainer = ({ category }: EmotionContainerProps) => {
-  const [positiveEmotions, setPositiveEmotions] = useState<string[]>([]);
-  const [negativeEmotions, setNegativeEmotions] = useState<string[]>([]);
+  const [positiveEmotions, setPositiveEmotions] = useState<Emotion[]>([]);
+  const [negativeEmotions, setNegativeEmotions] = useState<Emotion[]>([]);
   const [participants, setParticipants] = useState<Participant[]>([]);
 
   const [selectedParticipant, setSelectedParticipant] = useState("");
-  const [selectedEmotion, setSelectedEmotion] = useState("");
-  const [correctEmotion, setCorrectEmotion] = useState("");
+  const [selectedEmotion, setSelectedEmotion] = useState({
+    isFocused: false,
+    value: ""
+  });
 
   function handleParticipantChange(event: SelectChangeEvent) {
     setSelectedParticipant(event.target.value);
-  };
+  }
 
   function handleEmotionChange(event: SelectChangeEvent) {
-    setSelectedEmotion(event.target.value);
-  };
+    setSelectedEmotion({
+      isFocused: false,
+      value: event.target.value
+    });
+  }
 
   function pickRandomEmotions(
-    positiveEmotions: string[],
-    negativeEmotions: string[]
-  ): { positive: string[]; negative: string[] } {
+    positiveEmotions: Emotion[],
+    negativeEmotions: Emotion[]
+  ): { positive: Emotion[]; negative: Emotion[] } {
     const randomPositiveEmotions = positiveEmotions
       .map((emotion) => ({ emotion, rand: Math.random() }))
       .sort((a, b) => a.rand - b.rand)
@@ -84,68 +94,57 @@ const EmotionContainer = ({ category }: EmotionContainerProps) => {
   }
 
   const handleSubmit = () => {
+    if (!selectedParticipant || !selectedEmotion.value) {
+      setSelectedEmotion({
+        isFocused: true,
+        value: selectedEmotion.value
+      });
+      return;
+    }
+
     const updatedParticipants = participants.map((participant) => {
       if (participant.name === selectedParticipant) {
         return {
           ...participant,
-          answer: selectedEmotion
+          answer: selectedEmotion.value
         };
       }
       return participant;
     });
     setParticipants(updatedParticipants);
     setSelectedParticipant("");
-    setSelectedEmotion("");
+    setSelectedEmotion({
+      isFocused: false,
+      value: ""
+    });
   };
 
-  function handleAnnoncement() {
-    if (participants) {
-      const gameData = getGameData();
-      const participant = gameData.participants.find((person) => person.name === selectedParticipant);
-      if (participant) {
-        if (correctEmotion === selectedEmotion) {
-          participant.score.correct++;
-          updateScore(selectedParticipant, true);
-          const updatedParticipants = participants.map((person) => {
-            if (person.name === selectedParticipant) {
-              return {
-                ...person,
-                score: {
-                  ...person.score,
-                  correct: person.score.correct + 1,
-                }
-              };
-            }
-            return person;
-          });
-          setParticipants(updatedParticipants);
-        } else {
-          participant.score.wrong++;
-          updateScore(selectedParticipant, false);
-          const updatedParticipants = participants.map((person) => {
-            if (person.name === selectedParticipant) {
-              return {
-                ...person,
-                score: {
-                  ...person.score,
-                  wrong: person.score.wrong + 1,
-                }
-              };
-            }
-            return person;
-          });
-          setParticipants(updatedParticipants);
-        }
+  function handleAnnoncement(emotion: string) {
+    const updatedParticipants = participants.map((participant) => {
+      if (participant.answer === emotion) {
+        updateScore(participant.name, true);
+        return {
+          ...participant,
+          answer: "",
+        };
+      } else {
+        updateScore(participant.name, false);
+        return {
+          ...participant,
+          answer: "",
+        };
       }
-
-      setGameData(gameData);
-    }
+    });
+    setParticipants(updatedParticipants);
   }
 
   function handleCorrectEmotionChange(emotion: string) {
-    setCorrectEmotion(emotion);
-    handleAnnoncement();
-  };
+    handleAnnoncement(emotion);
+  }
+
+  function getEmotionCount(emotion: string) {
+    return participants.filter((participant) => participant.answer === emotion).length;
+  }
 
   useEffect(() => {
     const { positive, negative } = pickRandomEmotions(allPositiveEmotions, allNegativeEmotions);
@@ -160,23 +159,51 @@ const EmotionContainer = ({ category }: EmotionContainerProps) => {
     <Container maxWidth="lg" sx={{ mt: 4 }}>
       <Stack spacing={2}>
         {/* Emotion Panel */}
-        <Stack direction="row" spacing={1}>
-          {/* Using Stack to arrange buttons in two columns */}
-          <Stack direction="column" spacing={1} flexGrow={1}>
-            {positiveEmotions.map((emotion, index) => (
-              <Button key={index} variant="outlined" fullWidth onClick={() => handleCorrectEmotionChange(emotion)}>
-                {emotion}
-              </Button>
-            ))}
+        <Container
+          sx={{
+            mt: 4,
+            p: 4,
+            border: "1px solid white",
+            borderRadius: "8px",
+            minHeight: "200px"
+          }}
+        >
+          <Stack direction="row" spacing={1}>
+            {/* Using Stack to arrange buttons in two columns */}
+            <Stack direction="column" spacing={1} flexGrow={1}>
+              {positiveEmotions.map((emotion, index) => (
+                <Button
+                  key={index}
+                  variant="outlined"
+                  color="success"
+                  fullWidth
+                  onClick={() => handleCorrectEmotionChange(emotion.name)}
+                >
+                  <Stack direction="row" spacing={1} alignItems="center">
+                    <span>{emotion.emoji} {emotion.name}</span>
+                    <Chip label={getEmotionCount(emotion.name)} color="success" variant="filled" size="small" />
+                  </Stack>
+                </Button>
+              ))}
+            </Stack>
+            <Stack direction="column" spacing={1} flexGrow={1}>
+              {negativeEmotions.map((emotion, index) => (
+                <Button
+                  key={index}
+                  variant="outlined"
+                  color="error"
+                  fullWidth
+                  onClick={() => handleCorrectEmotionChange(emotion.name)}
+                >
+                  <Stack direction="row" spacing={1} alignItems="center">
+                    <span>{emotion.emoji} {emotion.name}</span>
+                    <Chip label={getEmotionCount(emotion.name)} color="error" variant="filled" size="small" />
+                  </Stack>
+                </Button>
+              ))}
+            </Stack>
           </Stack>
-          <Stack direction="column" spacing={1} flexGrow={1}>
-            {negativeEmotions.map((emotion, index) => (
-              <Button key={index} variant="outlined" fullWidth onClick={() => handleCorrectEmotionChange(emotion)}>
-                {emotion}
-              </Button>
-            ))}
-          </Stack>
-        </Stack>
+        </Container>
 
         {/* Paticipant Panel */}
         <Container sx={{ mt: 4, p: 4, border: "1px solid white", borderRadius: "8px" }}>
@@ -198,25 +225,28 @@ const EmotionContainer = ({ category }: EmotionContainerProps) => {
               </Select>
             </FormControl>
 
-            <FormControl sx={{ m: 1, minWidth: 200 }} size="small">
+            <FormControl sx={{ m: 1, minWidth: 200 }} size="small" error={selectedEmotion.isFocused && selectedEmotion.value === ""}>
               <InputLabel id="emotion-select-label">Emotions</InputLabel>
               <Select
                 labelId="emotion-select-label"
                 id="emotion-select"
-                value={selectedEmotion}
+                value={selectedEmotion.value}
                 label="Emotions"
                 onChange={handleEmotionChange}
+                onFocus={() => setSelectedEmotion({ isFocused: true, value: selectedEmotion.value })}
+                onBlur={() => setSelectedEmotion({ isFocused: false, value: selectedEmotion.value })}
               >
                 {[...positiveEmotions, ...negativeEmotions].map((emotion) => (
-                  <MenuItem key={emotion} value={emotion}>
-                    {emotion}
+                  <MenuItem key={emotion.name} value={emotion.name}>
+                    {emotion.name}
                   </MenuItem>
                 ))}
               </Select>
+              <FormHelperText>Required</FormHelperText>
             </FormControl>
 
-            <Button variant="outlined" onClick={handleSubmit}>
-              Submit
+            <Button variant="contained" onClick={handleSubmit}>
+              <SendIcon />
             </Button>
           </Stack>
         </Container>
