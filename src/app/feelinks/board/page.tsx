@@ -6,7 +6,7 @@ import { setGameData } from "@/utils/helper";
 
 const participants = ["P'First", "N'Jane", "MM", "JJ", "CS", "JN", "IR", "SJ", "PA"];
 
-const categories = ["Family", "Friend", "School", "Social", "Work", "Travel"];
+const categories = ["Family", "Friend", "School", "Social", "Work", "Entertainment"];
 
 export default function BoardPage() {
   const firstCategoryRow = categories.slice(0, 3);
@@ -50,13 +50,14 @@ export default function BoardPage() {
         })
           .then((response) => response.json())
           .then((response) => {
-            console.log("🚀 ~ ).then ~ response:", response);
             setGeneratedQuestion(response.data);
             setIsLoading(false);
           });
       } catch (err) {
         console.error(err);
         setIsLoading(false);
+      } finally {
+        setSelectedCategory("");
       }
     }
   }, [selectedCategory]);
@@ -74,6 +75,7 @@ export default function BoardPage() {
         <Stack direction="row" spacing={2}>
           {/* Left Section */}
           <Stack width="50%" spacing={2}>
+            {/* Question Panel */}
             <Container
               sx={{
                 mt: 4,
@@ -95,11 +97,12 @@ export default function BoardPage() {
               </Typography>
             </Container>
 
+            {/* Category Panel */}
             <Container
               maxWidth="md"
-              sx={{ mt: 4, p: 4, border: "1px solid white", borderRadius: "8px" }}
+              sx={{ mt: 4, p: 4, border: "1px solid white", borderRadius: "8px", height: "100%" }}
             >
-              <Stack direction="column" spacing={2}>
+              <Stack direction="column" spacing={2} justifyContent="center" height="100%">
                 <Stack direction="row" spacing={2} justifyContent="center">
                   {firstCategoryRow.map((category) => {
                     return (
