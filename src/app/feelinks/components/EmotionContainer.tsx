@@ -57,14 +57,20 @@ const EmotionContainer = ({ category }: EmotionContainerProps) => {
   const [negativeEmotions, setNegativeEmotions] = useState<Emotion[]>([]);
   const [participants, setParticipants] = useState<Participant[]>([]);
 
-  const [selectedParticipant, setSelectedParticipant] = useState("");
+  const [selectedParticipant, setSelectedParticipant] = useState({
+    isFocused: false,
+    value: ""
+  });
   const [selectedEmotion, setSelectedEmotion] = useState({
     isFocused: false,
     value: ""
   });
 
   function handleParticipantChange(event: SelectChangeEvent) {
-    setSelectedParticipant(event.target.value);
+    setSelectedParticipant({
+      isFocused: false,
+      value: event.target.value
+    });
   }
 
   function handleEmotionChange(event: SelectChangeEvent) {
@@ -94,7 +100,11 @@ const EmotionContainer = ({ category }: EmotionContainerProps) => {
   }
 
   const handleSubmit = () => {
-    if (!selectedParticipant || !selectedEmotion.value) {
+    if (!selectedParticipant.value || !selectedEmotion.value) {
+      setSelectedParticipant({
+        isFocused: true,
+        value: selectedParticipant.value
+      })
       setSelectedEmotion({
         isFocused: true,
         value: selectedEmotion.value
@@ -103,7 +113,7 @@ const EmotionContainer = ({ category }: EmotionContainerProps) => {
     }
 
     const updatedParticipants = participants.map((participant) => {
-      if (participant.name === selectedParticipant) {
+      if (participant.name === selectedParticipant.value) {
         return {
           ...participant,
           answer: selectedEmotion.value
@@ -112,7 +122,10 @@ const EmotionContainer = ({ category }: EmotionContainerProps) => {
       return participant;
     });
     setParticipants(updatedParticipants);
-    setSelectedParticipant("");
+    setSelectedParticipant({
+      isFocused: false,
+      value: ""
+    });
     setSelectedEmotion({
       isFocused: false,
       value: ""
@@ -147,6 +160,10 @@ const EmotionContainer = ({ category }: EmotionContainerProps) => {
   }
 
   useEffect(() => {
+    if (!category) {
+      return;
+    }
+
     const { positive, negative } = pickRandomEmotions(allPositiveEmotions, allNegativeEmotions);
     setPositiveEmotions(positive);
     setNegativeEmotions(negative);
@@ -208,14 +225,16 @@ const EmotionContainer = ({ category }: EmotionContainerProps) => {
         {/* Paticipant Panel */}
         <Container sx={{ mt: 4, p: 4, border: "1px solid white", borderRadius: "8px" }}>
           <Stack direction="row" spacing={2} justifyContent="center">
-            <FormControl sx={{ m: 1, minWidth: 200 }} size="small">
+            <FormControl sx={{ m: 1, minWidth: 200 }} size="small" error={selectedParticipant.isFocused && selectedParticipant.value === ""}>
               <InputLabel id="participant-select-label">Participants</InputLabel>
               <Select
                 labelId="participant-select-label"
                 id="participant-select"
-                value={selectedParticipant}
+                value={selectedParticipant.value}
                 label="Participant"
                 onChange={handleParticipantChange}
+                onFocus={() => setSelectedParticipant({ isFocused: true, value: selectedParticipant.value })}
+                onBlur={() => setSelectedParticipant({ isFocused: false, value: selectedParticipant.value })}
               >
                 {participants.map((participant) => (
                   <MenuItem key={participant.name} value={participant.name}>
@@ -223,6 +242,7 @@ const EmotionContainer = ({ category }: EmotionContainerProps) => {
                   </MenuItem>
                 ))}
               </Select>
+              <FormHelperText>Required</FormHelperText>
             </FormControl>
 
             <FormControl sx={{ m: 1, minWidth: 200 }} size="small" error={selectedEmotion.isFocused && selectedEmotion.value === ""}>
