@@ -93,7 +93,7 @@ export default function FeelinksBoardPage() {
         </Stack>
 
         {/* Main Content Area */}
-        <Stack direction="row" spacing={2}>
+        <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
           {/* Left Section */}
           <Stack width="50%" spacing={2}>
             {/* Question Panel */}

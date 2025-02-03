@@ -258,7 +258,7 @@ const EmotionContainer = ({
         <Stack direction="column" gap={2}>
           <Typography variant="h6">Submit an answer</Typography>
 
-          <Stack direction="row" spacing={2} justifyContent="center">
+          <Stack direction={{ xs: "column", md: "row" }} spacing={2} justifyContent="center">
             <FormControl
               sx={{ m: 1, minWidth: 200 }}
               size="small"
