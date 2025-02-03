@@ -1,6 +1,9 @@
 "use client";
-import React from "react";
-import { Container, Stack, Chip, Avatar } from "@mui/material";
+import React, { useMemo } from "react";
+import { Container, Stack, Chip, Avatar, Typography } from "@mui/material";
+import { createAvatar } from "@dicebear/core";
+import { thumbs } from "@dicebear/collection";
+
 import { Participant } from "@/types/feelinks";
 
 interface StatsContainerProps {
@@ -8,6 +11,35 @@ interface StatsContainerProps {
 }
 
 const StatsContainer = ({ participants }: StatsContainerProps) => {
+  const particapantBadges = useMemo(() => {
+    const badges = participants.map((participant, index) => {
+      const avatar = createAvatar(thumbs, {
+        seed: participant.name
+        // ... other options
+      });
+
+      const svg = avatar.toDataUri();
+      const label = (
+        <span>
+          {participant.name} |{" "}
+          <strong style={{ color: "green" }}>{participant.score.correct}</strong> - {" "}
+          <strong style={{ color: "red" }}>{participant.score.wrong}</strong>
+        </span>
+      );
+      return (
+        <Chip
+          key={index}
+          label={label}
+          avatar={<Avatar src={svg} />}
+          color="primary"
+          variant="outlined"
+          size="medium"
+        />
+      );
+    });
+    return badges;
+  }, [participants]);
+
   return (
     <Container
       maxWidth="lg"
@@ -19,17 +51,11 @@ const StatsContainer = ({ participants }: StatsContainerProps) => {
         minHeight: "200px"
       }}
     >
-      <Stack direction="row" spacing={1} flexWrap="wrap">
-        {participants.map((participant, index) => (
-          <Chip
-            key={index}
-            label={`${participant.name} - ${participant.score.correct}`}
-            avatar={<Avatar src="/static/images/avatar/1.jpg" />}
-            color="primary"
-            variant="outlined"
-            size="medium"
-          />
-        ))}
+      <Stack direction="column" gap={2}>
+        <Typography variant="h6">Stat for nerds</Typography>
+        <Stack direction="row" spacing={1} flexWrap="wrap">
+          {particapantBadges}
+        </Stack>
       </Stack>
     </Container>
   );

@@ -17,6 +17,12 @@ export const addParticipant = (name: string) => {
   setGameData(gameData);
 };
 
+export const removeParticipant = (name: string) => {
+  const gameData = getGameData();
+  gameData.participants = gameData.participants.filter((p) => p.name !== name);
+  setGameData(gameData);
+}
+
 export const updateScore = (participantName: string, correct: boolean) => {
   const { participants } = getGameData();
   const updatedParticipants = participants.map((participant) => {
@@ -33,4 +39,8 @@ export const updateScore = (participantName: string, correct: boolean) => {
     return participant;
   });
   setGameData({ participants: updatedParticipants });
+};
+
+export const shuffleArray = <T>(arr: T[]): T[] => {
+  return arr.slice().sort(() => Math.random() - 0.5);
 };

@@ -1,12 +1,12 @@
 "use client";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { TextField, Button, Container, Stack, Typography, Chip, Avatar } from "@mui/material";
 import { createAvatar } from "@dicebear/core";
 import { thumbs } from "@dicebear/collection";
 import SendIcon from "@mui/icons-material/Send";
 
 import { Participant } from "@/types/feelinks";
-import { addParticipant } from "@/utils/helper";
+import { addParticipant, removeParticipant } from "@/utils/helper";
 import Link from "next/link";
 
 const RegisterContainer = () => {
@@ -45,15 +45,36 @@ const RegisterContainer = () => {
     });
   };
 
-  const avatar = createAvatar(thumbs, {
-    seed: "Johnz Doe"
-    // ... other options
-  });
+  const particapantBadges = useMemo(() => {
+    const handleDelete = (name: string) => {
+      setParticipants(participants.filter((participant) => participant.name !== name));
+      removeParticipant(name);
+    };
 
-  const svg = avatar.toString();
+    const badges = participants.map((participant, index) => {
+      const avatar = createAvatar(thumbs, {
+        seed: participant.name
+        // ... other options
+      });
+
+      const svg = avatar.toDataUri();
+      return (
+        <Chip
+          key={index}
+          label={participant.name}
+          avatar={<Avatar src={svg} />}
+          color="primary"
+          variant="outlined"
+          size="medium"
+          onDelete={() => handleDelete(participant.name)}
+        />
+      );
+    });
+    return badges;
+  }, [participants]);
 
   return (
-    <Stack flexDirection="column" spacing={2}>
+    <Stack flexDirection="column" width="100%" spacing={2}>
       <Container
         maxWidth="sm"
         sx={{
@@ -64,7 +85,7 @@ const RegisterContainer = () => {
         }}
       >
         <Typography variant="h4" component="h1" gutterBottom>
-          Register
+          Lobby
         </Typography>
         <Stack spacing={2}>
           <TextField
@@ -93,20 +114,15 @@ const RegisterContainer = () => {
           mt: 4,
           p: 4,
           border: "1px solid white",
-          borderRadius: "8px"
+          borderRadius: "8px",
+          height: "100%"
         }}
       >
-        <Stack flexDirection="row" alignItems="center" gap={1}>
-          {participants.map((participant, index) => (
-            <Chip
-              key={index}
-              label={participant.name}
-              avatar={<Avatar src={svg} />}
-              color="primary"
-              variant="outlined"
-              size="medium"
-            />
-          ))}
+        <Stack flexDirection="column" gap={2}>
+          <Typography variant="subtitle1">Participants</Typography>
+          <Stack flexDirection="row" alignItems="center" gap={1} flexWrap="wrap">
+            {particapantBadges}
+          </Stack>
         </Stack>
       </Container>
     </Stack>

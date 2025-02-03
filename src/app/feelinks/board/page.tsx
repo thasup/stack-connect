@@ -1,23 +1,39 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Container, Stack, Typography, Button, CircularProgress } from "@mui/material";
 import EmotionContainer from "../components/EmotionContainer";
-import { getGameData } from "@/utils/helper";
+import { getGameData, shuffleArray } from "@/utils/helper";
 import StatsContainer from "../components/StatsContainer";
 import { Participant } from "@/types/feelinks";
 
-const categories = ["Family", "Friend", "School", "Social", "Work", "Entertainment"];
+// help me add the right MUI icon for each category
+const categories = [
+  { name: "Family", icon: "👪" },
+  { name: "Friend", icon: "👫" },
+  { name: "School", icon: "🏫" },
+  { name: "Social", icon: "🤝" },
+  { name: "Work", icon: "💼" },
+  { name: "Entertainment", icon: "🎉" }
+];
 
-export default function BoardPage() {
-  const firstCategoryRow = categories.slice(0, 3);
-  const secondCategoryRow = categories.slice(3, 6);
-
+export default function FeelinksBoardPage() {
   const [generatedQuestion, setGeneratedQuestion] = useState(
     "Please select a category to generate question."
   );
   const [isLoading, setIsLoading] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [participants, setParticipants] = useState<Participant[]>([]);
+
+  let startIndex = 0;
+  const currentPlayer = useMemo(() => {
+    // do not change index at first trigger, but fine to change it after
+    // the first trigger
+
+    if (startIndex !== 0) {
+      startIndex++;
+    }
+    return participants[startIndex]?.name;
+  }, [participants, setSelectedCategory]);
 
   function handleClickCategory(category: string) {
     setSelectedCategory(category);
@@ -32,7 +48,8 @@ export default function BoardPage() {
         score: participant.score
       };
     });
-    setParticipants(modifiedGameData);
+    const shuffledGameData = shuffleArray(modifiedGameData);
+    setParticipants(shuffledGameData);
   }, []);
 
   useEffect(() => {
@@ -73,6 +90,9 @@ export default function BoardPage() {
             unique scenarios and choose how you&apos;d feel. Play with friends, discuss your
             choices, and discover new perspectives!
           </Typography>
+          <Typography variant="h6">
+            Player Turn: {currentPlayer}
+          </Typography>
         </Stack>
 
         {/* Main Content Area */}
@@ -86,7 +106,7 @@ export default function BoardPage() {
                 p: 4,
                 border: "1px solid white",
                 borderRadius: "8px",
-                minHeight: "200px"
+                height: "100%"
               }}
             >
               <Typography variant="h5">
@@ -104,35 +124,36 @@ export default function BoardPage() {
             {/* Category Panel */}
             <Container
               maxWidth="md"
-              sx={{ mt: 4, p: 4, border: "1px solid white", borderRadius: "8px", height: "100%" }}
+              sx={{ mt: 4, p: 4, border: "1px solid white", borderRadius: "8px" }}
             >
               <Stack direction="column" spacing={2} justifyContent="center" height="100%">
+                <Typography variant="h6">Select one of categories</Typography>
                 <Stack direction="row" spacing={2} justifyContent="center">
-                  {firstCategoryRow.map((category) => {
+                  {categories.slice(0, 3).map((category) => {
                     return (
                       <Button
-                        key={category}
+                        key={category.name}
                         variant="outlined"
                         fullWidth
                         sx={{ flex: 1 }}
-                        onClick={() => handleClickCategory(category)}
+                        onClick={() => handleClickCategory(category.name)}
                       >
-                        {category}
+                        {category.name}
                       </Button>
                     );
                   })}
                 </Stack>
                 <Stack direction="row" spacing={2} justifyContent="center">
-                  {secondCategoryRow.map((category) => {
+                  {categories.slice(3, 6).map((category) => {
                     return (
                       <Button
-                        key={category}
+                        key={category.name}
                         variant="outlined"
                         fullWidth
                         sx={{ flex: 1 }}
-                        onClick={() => handleClickCategory(category)}
+                        onClick={() => handleClickCategory(category.name)}
                       >
-                        {category}
+                        {category.name}
                       </Button>
                     );
                   })}
