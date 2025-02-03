@@ -11,6 +11,7 @@ const Timer = () => {
   const [isTimeout, setIsTimeout] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let interval: any = null;
     if (isActive && seconds > 0) {
       interval = setInterval(() => {

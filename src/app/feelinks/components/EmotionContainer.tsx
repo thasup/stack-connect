@@ -180,6 +180,7 @@ const EmotionContainer = ({
 
     const gameData = getGameData();
     onParticipantChange(gameData.participants);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category]);
 
   return (
