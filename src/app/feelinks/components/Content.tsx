@@ -1,56 +1,56 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
-import AutoFixHighRoundedIcon from '@mui/icons-material/AutoFixHighRounded';
-import ConstructionRoundedIcon from '@mui/icons-material/ConstructionRounded';
-import SettingsSuggestRoundedIcon from '@mui/icons-material/SettingsSuggestRounded';
-import ThumbUpAltRoundedIcon from '@mui/icons-material/ThumbUpAltRounded';
-import { SitemarkIcon } from '@/app/feelinks/components/CustomIcons';
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+import Diversity2RoundedIcon from "@mui/icons-material/Diversity2Rounded";
+import AutoAwesomeRoundedIcon from "@mui/icons-material/AutoAwesomeRounded";
+import ColorLensIcon from '@mui/icons-material/ColorLens';
+import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
 
 const items = [
   {
-    icon: <SettingsSuggestRoundedIcon sx={{ color: 'text.secondary' }} />,
-    title: 'Adaptable performance',
+    icon: <Diversity2RoundedIcon sx={{ color: "text.secondary" }} />,
+    title: "Fun & Interactive",
     description:
-      'Our product effortlessly adjusts to your needs, boosting efficiency and simplifying your tasks.',
+      "Engage in an exciting emotional intelligence game that sparks conversations and strengthens connections."
   },
   {
-    icon: <ConstructionRoundedIcon sx={{ color: 'text.secondary' }} />,
-    title: 'Built to last',
+    icon: <ColorLensIcon sx={{ color: "text.secondary" }} />,
+    title: "Endless Scenarios",
     description:
-      'Experience unmatched durability that goes above and beyond with lasting investment.',
+      "Enjoy a limitless variety of unique scenarios, ensuring that no two sessions feel the same."
   },
   {
-    icon: <ThumbUpAltRoundedIcon sx={{ color: 'text.secondary' }} />,
-    title: 'Great user experience',
+    icon: <AutoAwesomeRoundedIcon sx={{ color: "text.secondary" }} />,
+    title: "Perfect for Any Occasion",
     description:
-      'Integrate our product into your routine with an intuitive and easy-to-use interface.',
+      "Whether with friends, family, or at a social gathering, Feelinks brings everyone closer together."
   },
   {
-    icon: <AutoFixHighRoundedIcon sx={{ color: 'text.secondary' }} />,
-    title: 'Innovative functionality',
+    icon: <AutoFixHighIcon sx={{ color: "text.secondary" }} />,
+    title: "AI-Powered Creativity",
     description:
-      'Stay ahead with features that set new standards, addressing your evolving needs better than the rest.',
-  },
+      "Every session is fresh, thanks to AI-generated scenarios that adapt to your playstyle."
+  }
 ];
+
 
 export default function Content() {
   return (
-    <Stack
-      sx={{ flexDirection: 'column', alignSelf: 'center', gap: 4, width: "100%" }}
-    >
-      <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-        <SitemarkIcon />
+    <Stack sx={{ flexDirection: "column", alignSelf: "center", gap: 4, width: "100%" }}>
+      <Box sx={{ display: { xs: "none", md: "flex" } }}>
+        <Typography variant="h4" gutterBottom sx={{ fontWeight: "medium" }}>
+          💖 Feelinks
+        </Typography>
       </Box>
       {items.map((item, index) => (
         <Stack key={index} direction="row" sx={{ gap: 2 }}>
           {item.icon}
           <div>
-            <Typography gutterBottom sx={{ fontWeight: 'medium' }}>
+            <Typography gutterBottom sx={{ fontWeight: "medium" }}>
               {item.title}
             </Typography>
-            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+            <Typography variant="body2" sx={{ color: "text.secondary" }}>
               {item.description}
             </Typography>
           </div>
