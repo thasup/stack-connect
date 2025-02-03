@@ -42,13 +42,17 @@ const allNegativeEmotions = [
 interface EmotionContainerProps {
   category: string;
   participants: Participant[];
+  playerIndex: number;
   onParticipantChange: (participants: Participant[]) => void;
+  onAnnounce: (playerIndex: number) => void;
 }
 
 const EmotionContainer = ({
   category,
   participants,
-  onParticipantChange
+  playerIndex,
+  onParticipantChange,
+  onAnnounce
 }: EmotionContainerProps) => {
   const [positiveEmotions, setPositiveEmotions] = useState<Emotion[]>([]);
   const [negativeEmotions, setNegativeEmotions] = useState<Emotion[]>([]);
@@ -153,6 +157,7 @@ const EmotionContainer = ({
       }
     });
     onParticipantChange(updatedParticipants);
+    onAnnounce(playerIndex + 1);
   }
 
   function handleCorrectEmotionChange(emotion: string) {

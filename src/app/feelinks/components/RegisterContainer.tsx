@@ -46,6 +46,10 @@ const RegisterContainer = () => {
   };
 
   const particapantBadges = useMemo(() => {
+    if (!participants.length) {
+      return <Typography variant="body1">Waiting for more! 🤭</Typography>;
+    }
+
     const handleDelete = (name: string) => {
       setParticipants(participants.filter((participant) => participant.name !== name));
       removeParticipant(name);
@@ -84,7 +88,7 @@ const RegisterContainer = () => {
           borderRadius: "8px"
         }}
       >
-        <Typography variant="h4" component="h1" gutterBottom>
+        <Typography variant="h6" component="h1" gutterBottom>
           Lobby
         </Typography>
         <Stack spacing={2}>
@@ -98,10 +102,15 @@ const RegisterContainer = () => {
             required
           />
           <Button variant="contained" color="primary" onClick={handleAdd}>
-            Add
+            Add Participant
           </Button>
           <Link href="/feelinks/board">
-            <Button fullWidth variant="outlined" endIcon={<SendIcon />}>
+            <Button
+              variant="outlined"
+              endIcon={<SendIcon />}
+              disabled={!!participants.length}
+              fullWidth
+            >
               Proceed
             </Button>
           </Link>
@@ -119,7 +128,7 @@ const RegisterContainer = () => {
         }}
       >
         <Stack flexDirection="column" gap={2}>
-          <Typography variant="subtitle1">Participants</Typography>
+          <Typography variant="h6">Participants</Typography>
           <Stack flexDirection="row" alignItems="center" gap={1} flexWrap="wrap">
             {particapantBadges}
           </Stack>

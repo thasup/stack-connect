@@ -23,17 +23,14 @@ export default function FeelinksBoardPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [participants, setParticipants] = useState<Participant[]>([]);
+  const [playerIndex, setPlayerIndex] = useState(0);
 
-  let startIndex = 0;
   const currentPlayer = useMemo(() => {
-    // do not change index at first trigger, but fine to change it after
-    // the first trigger
-
-    if (startIndex !== 0) {
-      startIndex++;
+    if (playerIndex >= participants.length - 1) {
+      return "You're reach the end of the Game! 🎉";
     }
-    return participants[startIndex]?.name;
-  }, [participants, setSelectedCategory]);
+    return `Player Turn: ${participants[playerIndex]?.name}`;
+  }, [participants, playerIndex]);
 
   function handleClickCategory(category: string) {
     setSelectedCategory(category);
@@ -91,7 +88,7 @@ export default function FeelinksBoardPage() {
             choices, and discover new perspectives!
           </Typography>
           <Typography variant="h6">
-            Player Turn: {currentPlayer}
+            {currentPlayer}
           </Typography>
         </Stack>
 
@@ -167,7 +164,9 @@ export default function FeelinksBoardPage() {
             <EmotionContainer
               category={selectedCategory}
               participants={participants}
+              playerIndex={playerIndex}
               onParticipantChange={setParticipants}
+              onAnnounce={setPlayerIndex}
             />
           </Stack>
         </Stack>
