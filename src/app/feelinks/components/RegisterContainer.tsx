@@ -108,7 +108,7 @@ const RegisterContainer = () => {
             <Button
               variant="outlined"
               endIcon={<SendIcon />}
-              disabled={!!participants.length}
+              disabled={participants.length <= 1}
               fullWidth
             >
               Proceed

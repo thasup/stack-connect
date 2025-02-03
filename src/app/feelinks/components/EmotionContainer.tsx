@@ -16,6 +16,7 @@ import {
 import { getGameData, updateScore } from "@/utils/helper";
 import { Emotion, Participant } from "@/types/feelinks";
 import SendIcon from "@mui/icons-material/Send";
+import Timer from "./Timer";
 
 const allPositiveEmotions = [
   { name: "Love", emoji: "❤️" },
@@ -183,6 +184,8 @@ const EmotionContainer = ({
 
   return (
     <Stack spacing={2} sx={{ height: "100%" }}>
+      <Timer />
+
       {/* Emotion Panel */}
       <Container
         sx={{
@@ -195,61 +198,63 @@ const EmotionContainer = ({
       >
         <Stack direction="column" gap={2}>
           <Typography variant="h6">Choose the closest emotion!</Typography>
-          <Stack direction="row" spacing={1}>
-            <Stack direction="column" spacing={1} flexGrow={1}>
-              {positiveEmotions.map((emotion, index) => (
-                <Button
-                  key={index}
-                  variant="outlined"
-                  color="success"
-                  fullWidth
-                  onClick={() => handleCorrectEmotionChange(emotion.name)}
-                >
-                  <Stack direction="row" spacing={1} alignItems="center">
-                    <span>
-                      {emotion.emoji} {emotion.name}
-                    </span>
-                    <Chip
-                      label={getEmotionCount(emotion.name)}
-                      color="success"
-                      variant="filled"
-                      size="small"
-                    />
-                  </Stack>
-                </Button>
-              ))}
+          {(positiveEmotions.length && negativeEmotions.length) ? (
+            <Stack direction="row" spacing={1}>
+              <Stack direction="column" spacing={1} flexGrow={1}>
+                {positiveEmotions.map((emotion, index) => (
+                  <Button
+                    key={index}
+                    variant="outlined"
+                    color="success"
+                    fullWidth
+                    onClick={() => handleCorrectEmotionChange(emotion.name)}
+                  >
+                    <Stack direction="row" spacing={1} alignItems="center">
+                      <span>
+                        {emotion.emoji} {emotion.name}
+                      </span>
+                      <Chip
+                        label={getEmotionCount(emotion.name)}
+                        color="success"
+                        variant="filled"
+                        size="small"
+                      />
+                    </Stack>
+                  </Button>
+                ))}
+              </Stack>
+              <Stack direction="column" spacing={1} flexGrow={1}>
+                {negativeEmotions.map((emotion, index) => (
+                  <Button
+                    key={index}
+                    variant="outlined"
+                    color="error"
+                    fullWidth
+                    onClick={() => handleCorrectEmotionChange(emotion.name)}
+                  >
+                    <Stack direction="row" spacing={1} alignItems="center">
+                      <span>
+                        {emotion.emoji} {emotion.name}
+                      </span>
+                      <Chip
+                        label={getEmotionCount(emotion.name)}
+                        color="error"
+                        variant="filled"
+                        size="small"
+                      />
+                    </Stack>
+                  </Button>
+                ))}
+              </Stack>
             </Stack>
-            <Stack direction="column" spacing={1} flexGrow={1}>
-              {negativeEmotions.map((emotion, index) => (
-                <Button
-                  key={index}
-                  variant="outlined"
-                  color="error"
-                  fullWidth
-                  onClick={() => handleCorrectEmotionChange(emotion.name)}
-                >
-                  <Stack direction="row" spacing={1} alignItems="center">
-                    <span>
-                      {emotion.emoji} {emotion.name}
-                    </span>
-                    <Chip
-                      label={getEmotionCount(emotion.name)}
-                      color="error"
-                      variant="filled"
-                      size="small"
-                    />
-                  </Stack>
-                </Button>
-              ))}
-            </Stack>
-          </Stack>
+          ) : (
+            <Typography variant="body2">Wait until the question is generated</Typography>
+          )}
         </Stack>
       </Container>
 
       {/* Paticipant Panel */}
-      <Container
-        sx={{ mt: 4, p: 4, border: "1px solid white", borderRadius: "8px" }}
-      >
+      <Container sx={{ mt: 4, p: 4, border: "1px solid white", borderRadius: "8px" }}>
         <Stack direction="column" gap={2}>
           <Typography variant="h6">Submit an answer</Typography>
 
