@@ -5,6 +5,7 @@ import EmotionContainer from "../components/EmotionContainer";
 import { getGameData, shuffleArray } from "@/utils/helper";
 import StatsContainer from "../components/StatsContainer";
 import { Participant } from "@/types/feelinks";
+import AudioPlayer from "@/components/AudioPlayer";
 
 // help me add the right MUI icon for each category
 const categories = [
@@ -20,6 +21,7 @@ export default function FeelinksBoardPage() {
   const [generatedQuestion, setGeneratedQuestion] = useState(
     "Please select a category to generate question."
   );
+  const [sound, setSound] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [participants, setParticipants] = useState<Participant[]>([]);
@@ -63,7 +65,10 @@ export default function FeelinksBoardPage() {
       })
         .then((response) => response.json())
         .then((response) => {
-          setGeneratedQuestion(response.data);
+          const audioUrl = `data:audio/mp3;base64,${response.audio}`;
+
+          setGeneratedQuestion(response.scenario);
+          setSound(audioUrl);
         })
         .catch((err) => {
           setGeneratedQuestion("Something went wrong, please try again.");
@@ -87,9 +92,7 @@ export default function FeelinksBoardPage() {
             unique scenarios and choose how you&apos;d feel. Play with friends, discuss your
             choices, and discover new perspectives!
           </Typography>
-          <Typography variant="h6">
-            {currentPlayer}
-          </Typography>
+          <Typography variant="h6">{currentPlayer}</Typography>
         </Stack>
 
         {/* Main Content Area */}
@@ -103,7 +106,8 @@ export default function FeelinksBoardPage() {
                 p: 4,
                 border: "1px solid white",
                 borderRadius: "8px",
-                height: "100%"
+                height: "100%",
+                position: "relative",
               }}
             >
               <Typography variant="h5">
@@ -116,6 +120,16 @@ export default function FeelinksBoardPage() {
                   generatedQuestion
                 )}
               </Typography>
+              <div
+                style={{
+                  position: "absolute",
+                  bottom: "15px",
+                  right: "15px",
+                  cursor: "pointer"
+                }}
+              >
+                <AudioPlayer audioUrl={sound} />
+              </div>
             </Container>
 
             {/* Category Panel */}
