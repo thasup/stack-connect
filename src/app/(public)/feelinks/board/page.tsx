@@ -28,7 +28,7 @@ export default function FeelinksBoardPage() {
   const [playerIndex, setPlayerIndex] = useState(0);
 
   const currentPlayer = useMemo(() => {
-    if (playerIndex >= participants.length - 1) {
+    if (playerIndex > participants.length - 1) {
       return "You're reach the end of the Game! 🎉";
     }
     return `Player Turn: ${participants[playerIndex]?.name}`;
