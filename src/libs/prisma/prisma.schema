@@ -9,8 +9,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql" // Change to your preferred database
-  url      = env("NEXT_PUBLIC_DATABASE_URL")
+  provider  = "postgresql" // Change to your preferred database
+  url       = env("NEXT_PUBLIC_DATABASE_URL")
+  directUrl = env("NEXT_PUBLIC_DIRECT_URL")
 }
 
 model User {
