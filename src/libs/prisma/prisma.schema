@@ -1,0 +1,61 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql" // Change to your preferred database
+  url      = env("NEXT_PUBLIC_DATABASE_URL")
+}
+
+model User {
+  id            String          @id @default(uuid())
+  username      String          @unique
+  email         String          @unique
+  createdAt     DateTime        @default(now())
+  gameSessions  GameSession[]   @relation("UserGameSession") // Many-to-many relationship
+  choices       PlayerChoice[]  // One-to-many with PlayerChoice
+}
+
+model GameSession {
+  id             String         @id @default(uuid())
+  createdAt      DateTime       @default(now())
+  users          User[]         @relation("UserGameSession") // Many-to-many relationship
+  scenarios      Scenario[]     @relation("GameSessionScenario") // Many-to-many with Scenario
+  playerChoices  PlayerChoice[] // Players’ emotional choices
+}
+
+model Scenario {
+  id            String          @id @default(uuid())
+  text          String
+  category      String          // Entertainment, Work, Social, etc.
+  audio         String
+  createdAt     DateTime        @default(now())
+  gameSessions  GameSession[]   @relation("GameSessionScenario") // Many-to-many with GameSession
+  playerChoices PlayerChoice[]  // One-to-many with PlayerChoice
+}
+
+model Emotion {
+  id            String          @id @default(uuid())
+  name          String          @unique // Example: Happy, Angry, Excited, etc.
+  emoji         String          // Corresponding emoji
+  playerChoices PlayerChoice[]  // One-to-many with PlayerChoice
+}
+
+model PlayerChoice {
+  id            String          @id @default(uuid())
+  userId        String
+  gameSessionId String
+  scenarioId    String
+  emotionId     String
+
+  user          User            @relation(fields: [userId], references: [id])
+  gameSession   GameSession     @relation(fields: [gameSessionId], references: [id])
+  scenario      Scenario        @relation(fields: [scenarioId], references: [id])
+  emotion       Emotion         @relation(fields: [emotionId], references: [id])
+}

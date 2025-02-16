@@ -1,6 +1,6 @@
 import * as React from "react";
 import Stack from "@mui/material/Stack";
-import Content from "@/app/feelinks/components/Content";
+import Content from "@/app/(public)/feelinks/components/Content";
 import RegisterContainer from "./components/RegisterContainer";
 
 export default function Feelinks() {
