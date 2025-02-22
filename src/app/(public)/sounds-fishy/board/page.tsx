@@ -1,8 +1,7 @@
 "use client";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Stack, Typography, Button, CircularProgress, TextField } from "@mui/material";
 import { getGameData, resetGameData, shuffleArray } from "@/utils/helper";
-import StatsContainer from "../components/StatsContainer";
 import { Participant } from "@/types/feelinks";
 import AudioPlayer from "@/components/AudioPlayer";
 import { useRouter } from "next/navigation";
@@ -10,6 +9,7 @@ import { SoundsFishyResponse, SoundsFishyScenario } from "@/types/sounds-fishy";
 import AnswerContainer from "../components/AnswerContainer";
 import { ROUTE } from "@/types/common";
 import SendIcon from "@mui/icons-material/Send";
+import StatsContainer from "@/components/StatsContainer";
 
 // help me add the right MUI icon for each category
 const categories = [
@@ -36,15 +36,6 @@ export default function SoundsFishyBoardPage() {
   const [fact, setFact] = useState("");
   const [loadingText, setLoadingText] = useState("Generating...");
   const [participants, setParticipants] = useState<Participant[]>([]);
-  const [playerIndex, setPlayerIndex] = useState(0);
-
-  const currentPlayer = useMemo(() => {
-    // if (playerIndex > participants.length - 1) {
-    //   return "You're reach the end of the Game! 🎉";
-    // }
-    // return `Player Turn: ${participants[playerIndex]?.name}`;
-    return "Player Turn: WIP..."
-  }, [participants, playerIndex]);
 
   function handleClickCategory(category: string) {
     setSelectedCategory(category);
@@ -137,7 +128,7 @@ export default function SoundsFishyBoardPage() {
             alignItems={{ xs: "flex-start", md: "center" }}
             justifyContent="space-between"
           >
-            <Typography variant="h6">{currentPlayer}</Typography>
+            <Typography variant="h6">Player Turn: WIP...</Typography>
             <Button
               variant="outlined"
               color="error"

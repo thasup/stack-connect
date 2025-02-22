@@ -3,10 +3,10 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Container, Stack, Typography, Button, CircularProgress } from "@mui/material";
 import EmotionContainer from "../components/EmotionContainer";
 import { getGameData, resetGameData, shuffleArray } from "@/utils/helper";
-import StatsContainer from "../components/StatsContainer";
 import { Participant } from "@/types/feelinks";
 import AudioPlayer from "@/components/AudioPlayer";
 import { useRouter } from 'next/navigation'
+import StatsContainer from "@/components/StatsContainer";
 
 // help me add the right MUI icon for each category
 const categories = [
