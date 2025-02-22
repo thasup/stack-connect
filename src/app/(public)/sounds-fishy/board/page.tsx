@@ -246,24 +246,6 @@ export default function SoundsFishyBoardPage() {
                   })}
                 </Stack>
 
-                <Stack direction="row" spacing={2} justifyContent="center">
-                  {/* <TextField
-                    required
-                    id="outlined-required"
-                    label="Custom Category"
-                    sx={{ width: "100%" }}
-                    value={customCategory}
-                    onChange={(e) => setCustomCategory(e.target.value)}
-                  />
-                  <Button
-                    variant="contained"
-                    disabled={isLoading}
-                    onClick={handleSubmitCustomCategory}
-                  >
-                    <SendIcon />
-                  </Button> */}
-                </Stack>
-
                 <Stack
                   direction={{ xs: "column", md: "row" }}
                   spacing={2}
@@ -275,8 +257,9 @@ export default function SoundsFishyBoardPage() {
                       labelId="language-select-label"
                       id="language-select"
                       size="medium"
-                      value={language}
                       label="Language"
+                      value={language}
+                      disabled={isLoading}
                       onChange={handleLanguageChange}
                     >
                       {languages.map((language) => (
@@ -293,6 +276,7 @@ export default function SoundsFishyBoardPage() {
                     label="Custom Category"
                     sx={{ width: "100%" }}
                     value={customCategory}
+                    disabled={isLoading}
                     onChange={(e) => setCustomCategory(e.target.value)}
                   />
                   <Button
@@ -309,7 +293,7 @@ export default function SoundsFishyBoardPage() {
 
           {/* Right Section */}
           <Stack sx={{ width: { xs: "100%", md: "50%" } }} spacing={2}>
-            <AnswerContainer question={generatedQuestion} answer={answer} fact={fact} />
+            <AnswerContainer question={generatedQuestion} answer={answer} fact={fact} disabled={isLoading} />
           </Stack>
         </Stack>
 
