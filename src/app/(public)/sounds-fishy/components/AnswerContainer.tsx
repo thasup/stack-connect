@@ -4,7 +4,7 @@ import {
   Container,
   Stack,
   Button,
-  Typography
+  Typography,
 } from "@mui/material";
 
 interface AnswerContainerProps {
@@ -43,8 +43,8 @@ const AnswerContainer = ({
           <Stack direction="row" gap={2} justifyContent="space-between">
             <Typography variant="h6">Reveal the Answer</Typography>
             <Button variant="contained" onClick={() => setIsShowAnswer(!isShowAnswer)}>
-                {isShowAnswer ? "Hide Answer" : "Show Answer"}
-              </Button>
+              {isShowAnswer ? "Hide Answer" : "Show Answer"}
+            </Button>
           </Stack>
           {isShowAnswer && <Typography variant="h6">{answer}</Typography>}
         </Stack>

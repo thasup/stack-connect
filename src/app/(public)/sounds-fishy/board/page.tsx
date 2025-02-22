@@ -1,6 +1,18 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Container, Stack, Typography, Button, CircularProgress, TextField } from "@mui/material";
+import {
+  Container,
+  Stack,
+  Typography,
+  Button,
+  CircularProgress,
+  TextField,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  SelectChangeEvent
+} from "@mui/material";
 import { getGameData, resetGameData, shuffleArray } from "@/utils/helper";
 import { Participant } from "@/types/feelinks";
 import AudioPlayer from "@/components/AudioPlayer";
@@ -21,6 +33,17 @@ const categories = [
   { name: "Random Fun", icon: "🎲" }
 ];
 
+const languages = [
+  { name: "English" },
+  { name: "Thai" },
+  { name: "French" },
+  { name: "Spanish" },
+  { name: "German" },
+  { name: "Italian" },
+  { name: "Portuguese" },
+  { name: "Russian" }
+];
+
 const SERVER_DELAY_TIME_LIMIT = 10000;
 
 export default function SoundsFishyBoardPage() {
@@ -34,6 +57,7 @@ export default function SoundsFishyBoardPage() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [answer, setAnswer] = useState("");
   const [fact, setFact] = useState("");
+  const [language, setLanguage] = useState("English");
   const [loadingText, setLoadingText] = useState("Generating...");
   const [participants, setParticipants] = useState<Participant[]>([]);
 
@@ -48,6 +72,10 @@ export default function SoundsFishyBoardPage() {
 
   function handleSubmitCustomCategory() {
     setSelectedCategory(customCategory);
+  }
+
+  function handleLanguageChange(event: SelectChangeEvent) {
+    setLanguage(event.target.value);
   }
 
   useEffect(() => {
@@ -88,7 +116,7 @@ export default function SoundsFishyBoardPage() {
         },
         body: new URLSearchParams({
           category: selectedCategory,
-          lang: "th"
+          lang: language
         })
       })
         .then((response) => response.json())
@@ -217,7 +245,48 @@ export default function SoundsFishyBoardPage() {
                     );
                   })}
                 </Stack>
+
                 <Stack direction="row" spacing={2} justifyContent="center">
+                  {/* <TextField
+                    required
+                    id="outlined-required"
+                    label="Custom Category"
+                    sx={{ width: "100%" }}
+                    value={customCategory}
+                    onChange={(e) => setCustomCategory(e.target.value)}
+                  />
+                  <Button
+                    variant="contained"
+                    disabled={isLoading}
+                    onClick={handleSubmitCustomCategory}
+                  >
+                    <SendIcon />
+                  </Button> */}
+                </Stack>
+
+                <Stack
+                  direction={{ xs: "column", md: "row" }}
+                  spacing={2}
+                  justifyContent="flex-start"
+                >
+                  <FormControl sx={{ m: 1, minWidth: 200 }} size="small" error={language === ""}>
+                    <InputLabel id="language-select-label">Language</InputLabel>
+                    <Select
+                      labelId="language-select-label"
+                      id="language-select"
+                      size="medium"
+                      value={language}
+                      label="Language"
+                      onChange={handleLanguageChange}
+                    >
+                      {languages.map((language) => (
+                        <MenuItem key={language.name} value={language.name}>
+                          {language.name}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+
                   <TextField
                     required
                     id="outlined-required"
@@ -240,11 +309,7 @@ export default function SoundsFishyBoardPage() {
 
           {/* Right Section */}
           <Stack sx={{ width: { xs: "100%", md: "50%" } }} spacing={2}>
-            <AnswerContainer
-              question={generatedQuestion}
-              answer={answer}
-              fact={fact}
-            />
+            <AnswerContainer question={generatedQuestion} answer={answer} fact={fact} />
           </Stack>
         </Stack>
 
