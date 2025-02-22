@@ -53,7 +53,7 @@ const StatsContainer = ({ participants }: StatsContainerProps) => {
     >
       <Stack direction="column" gap={2}>
         <Typography variant="h6">Stat for nerds</Typography>
-        <Stack direction="row" spacing={1} flexWrap="wrap">
+        <Stack direction="row" gap={1} flexWrap="wrap">
           {particapantBadges}
         </Stack>
       </Stack>

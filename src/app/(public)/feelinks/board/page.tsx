@@ -2,10 +2,11 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Container, Stack, Typography, Button, CircularProgress } from "@mui/material";
 import EmotionContainer from "../components/EmotionContainer";
-import { getGameData, shuffleArray } from "@/utils/helper";
+import { getGameData, resetGameData, shuffleArray } from "@/utils/helper";
 import StatsContainer from "../components/StatsContainer";
 import { Participant } from "@/types/feelinks";
 import AudioPlayer from "@/components/AudioPlayer";
+import { useRouter } from 'next/navigation'
 
 // help me add the right MUI icon for each category
 const categories = [
@@ -18,6 +19,7 @@ const categories = [
 ];
 
 export default function FeelinksBoardPage() {
+  const router = useRouter();
   const [generatedQuestion, setGeneratedQuestion] = useState(
     "Please select a category to generate question."
   );
@@ -36,6 +38,11 @@ export default function FeelinksBoardPage() {
 
   function handleClickCategory(category: string) {
     setSelectedCategory(category);
+  }
+
+  function handleEndGame() {
+    resetGameData();
+    router.push('/feelinks');
   }
 
   useEffect(() => {
@@ -92,13 +99,28 @@ export default function FeelinksBoardPage() {
             unique scenarios and choose how you&apos;d feel. Play with friends, discuss your
             choices, and discover new perspectives!
           </Typography>
-          <Typography variant="h6">{currentPlayer}</Typography>
+          <Stack
+            direction={{ xs: "column", md: "row" }}
+            spacing={2}
+            alignItems={{ xs: "flex-start", md: "center" }}
+            justifyContent="space-between"
+          >
+            <Typography variant="h6">{currentPlayer}</Typography>
+            <Button
+              variant="outlined"
+              color="error"
+              sx={{ flex: 1, wordBreak: "break-word", maxWidth: "fit-content" }}
+              onClick={handleEndGame}
+            >
+              End Game
+            </Button>
+          </Stack>
         </Stack>
 
         {/* Main Content Area */}
         <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
           {/* Left Section */}
-          <Stack width="50%" spacing={2}>
+          <Stack sx={{ width: { xs: "100%", md: "50%" } }} spacing={2}>
             {/* Question Panel */}
             <Container
               sx={{
@@ -146,7 +168,7 @@ export default function FeelinksBoardPage() {
                         key={category.name}
                         variant="outlined"
                         fullWidth
-                        sx={{ flex: 1 }}
+                        sx={{ flex: 1, wordBreak: "break-word" }}
                         onClick={() => handleClickCategory(category.name)}
                       >
                         {category.name}
@@ -161,7 +183,7 @@ export default function FeelinksBoardPage() {
                         key={category.name}
                         variant="outlined"
                         fullWidth
-                        sx={{ flex: 1 }}
+                        sx={{ flex: 1, wordBreak: "break-word" }}
                         onClick={() => handleClickCategory(category.name)}
                       >
                         {category.name}
@@ -174,7 +196,7 @@ export default function FeelinksBoardPage() {
           </Stack>
 
           {/* Right Section */}
-          <Stack width="50%" spacing={2}>
+          <Stack sx={{ width: { xs: '100%', md: '50%' } }} spacing={2}>
             <EmotionContainer
               category={selectedCategory}
               participants={participants}

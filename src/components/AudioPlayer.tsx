@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 import PauseIcon from "@mui/icons-material/Pause";
@@ -9,7 +9,7 @@ interface AudioPlayerProps {
 
 export default function AudioPlayer({ audioUrl, ...props }: AudioPlayerProps) {
   const audioRef = useRef<HTMLAudioElement>(null);
-  const [isPlaying, setIsPlaying] = React.useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   // Listen for the "ended" event on the audio element
   useEffect(() => {

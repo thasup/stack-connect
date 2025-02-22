@@ -41,6 +41,11 @@ export const updateScore = (participantName: string, correct: boolean) => {
   setGameData({ participants: updatedParticipants });
 };
 
+export const resetGameData = () => {
+  // reset "game-data" local storage
+  localStorage.removeItem(GAME_DATA_KEY);
+}
+
 export const shuffleArray = <T>(arr: T[]): T[] => {
   return arr.slice().sort(() => Math.random() - 0.5);
 };

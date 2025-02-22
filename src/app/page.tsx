@@ -1,6 +1,17 @@
 import { Container, Stack, Typography } from "@mui/material";
 import Link from "next/link";
 
+const links = [
+  {
+    href: "/feelinks",
+    title: "💖 Feelinks"
+  },
+  {
+    href: "/sounds-fishy",
+    title: "🐟 Sounds Fishy"
+  }
+];
+
 export default function Home() {
   return (
     <Stack
@@ -20,7 +31,7 @@ export default function Home() {
         sx={{
           justifyContent: "center",
           gap: { xs: 6, sm: 12 },
-          p: 2,
+          p: 2
         }}
       >
         <Stack
@@ -34,27 +45,29 @@ export default function Home() {
         >
           <Stack direction="column" gap={2}>
             <Typography variant="h4">Select a game to play 🚀</Typography>
-            <Stack direction="row" spacing={1} flexWrap="wrap">
-              <Link href="/feelinks">
-                <Container
-                  maxWidth="lg"
-                  sx={{
-                    mt: 4,
-                    p: 4,
-                    border: "1px solid white",
-                    borderRadius: "8px",
-                    transition: "all 0.3s ease-in-out",
-                    "&:hover": {
-                      boxShadow: "0 0 20px 0 rgba(0, 191, 255, 0.8)",
-                      transform: "scale(1.05)"
-                    }
-                  }}
-                >
-                  <Stack direction="column" gap={2}>
-                    <Typography variant="h6">💖 Feelinks</Typography>
-                  </Stack>
-                </Container>
-              </Link>
+            <Stack direction="row" spacing={4} flexWrap="wrap">
+              {links.map((link, index) => (
+                <Link key={index} href={link.href}>
+                  <Container
+                    maxWidth="lg"
+                    sx={{
+                      mt: 4,
+                      p: 4,
+                      border: "1px solid white",
+                      borderRadius: "8px",
+                      transition: "all 0.3s ease-in-out",
+                      "&:hover": {
+                        boxShadow: "0 0 20px 0 rgba(0, 191, 255, 0.8)",
+                        transform: "scale(1.05)"
+                      }
+                    }}
+                  >
+                    <Stack direction="column" gap={2}>
+                      <Typography variant="h6">{link.title}</Typography>
+                    </Stack>
+                  </Container>
+                </Link>
+              ))}
             </Stack>
           </Stack>
         </Stack>

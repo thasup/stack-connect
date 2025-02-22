@@ -4,12 +4,13 @@ import { TextField, Button, Container, Stack, Typography, Chip, Avatar } from "@
 import { createAvatar } from "@dicebear/core";
 import { thumbs } from "@dicebear/collection";
 import SendIcon from "@mui/icons-material/Send";
+import { useRouter } from 'next/navigation'
 
 import { Participant } from "@/types/feelinks";
 import { addParticipant, removeParticipant } from "@/utils/helper";
-import Link from "next/link";
 
 const RegisterContainer = () => {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     name: ""
   });
@@ -112,16 +113,15 @@ const RegisterContainer = () => {
           <Button variant="contained" color="primary" onClick={handleAdd}>
             Add Participant
           </Button>
-          <Link href="/feelinks/board">
             <Button
               variant="outlined"
               endIcon={<SendIcon />}
               disabled={participants.length <= 1}
               fullWidth
+              onClick={() => router.push('/feelinks/board')}
             >
               Proceed
             </Button>
-          </Link>
         </Stack>
       </Container>
 
