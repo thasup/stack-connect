@@ -1,40 +1,49 @@
 "use client";
 import React, { useEffect, useMemo, useState } from "react";
-import { Container, Stack, Typography, Button, CircularProgress } from "@mui/material";
+import { Container, Stack, Typography, Button, CircularProgress, TextField } from "@mui/material";
 import { getGameData, resetGameData, shuffleArray } from "@/utils/helper";
 import StatsContainer from "../components/StatsContainer";
 import { Participant } from "@/types/feelinks";
 import AudioPlayer from "@/components/AudioPlayer";
-import { useRouter } from 'next/navigation'
-import Timer from "@/components/Timer";
+import { useRouter } from "next/navigation";
 import { SoundsFishyResponse, SoundsFishyScenario } from "@/types/sounds-fishy";
+import AnswerContainer from "../components/AnswerContainer";
+import { ROUTE } from "@/types/common";
+import SendIcon from "@mui/icons-material/Send";
 
 // help me add the right MUI icon for each category
 const categories = [
-  { name: "Family", icon: "👪" },
-  { name: "Friend", icon: "👫" },
-  { name: "School", icon: "🏫" },
-  { name: "Social", icon: "🤝" },
-  { name: "Work", icon: "💼" },
-  { name: "Entertainment", icon: "🎉" }
+  { name: "General Knowledge", icon: "🧠" },
+  { name: "Pop Culture", icon: "🎬" },
+  { name: "Science & Nature", icon: "🌍" },
+  { name: "History", icon: "📜" },
+  { name: "Geography", icon: "🌍" },
+  { name: "Random Fun", icon: "🎲" }
 ];
+
+const SERVER_DELAY_TIME_LIMIT = 10000;
 
 export default function SoundsFishyBoardPage() {
   const router = useRouter();
   const [generatedQuestion, setGeneratedQuestion] = useState(
     "Please select a category to generate question."
   );
-  const [sound, setSound] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [sound, setSound] = useState("");
+  const [customCategory, setCustomCategory] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [answer, setAnswer] = useState("");
+  const [fact, setFact] = useState("");
+  const [loadingText, setLoadingText] = useState("Generating...");
   const [participants, setParticipants] = useState<Participant[]>([]);
   const [playerIndex, setPlayerIndex] = useState(0);
 
   const currentPlayer = useMemo(() => {
-    if (playerIndex > participants.length - 1) {
-      return "You're reach the end of the Game! 🎉";
-    }
-    return `Player Turn: ${participants[playerIndex]?.name}`;
+    // if (playerIndex > participants.length - 1) {
+    //   return "You're reach the end of the Game! 🎉";
+    // }
+    // return `Player Turn: ${participants[playerIndex]?.name}`;
+    return "Player Turn: WIP..."
   }, [participants, playerIndex]);
 
   function handleClickCategory(category: string) {
@@ -43,8 +52,27 @@ export default function SoundsFishyBoardPage() {
 
   function handleEndGame() {
     resetGameData();
-    router.push('/feelinks');
+    router.push(ROUTE.SOUNDS_FISHY);
   }
+
+  function handleSubmitCustomCategory() {
+    setSelectedCategory(customCategory);
+  }
+
+  useEffect(() => {
+    setLoadingText("Generating...");
+    let timeoutId: NodeJS.Timeout | null = null;
+    if (isLoading) {
+      timeoutId = setTimeout(() => {
+        setLoadingText("Please wait, we're waking our lazy server...");
+      }, SERVER_DELAY_TIME_LIMIT);
+    }
+    return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    };
+  }, [isLoading]);
 
   useEffect(() => {
     // retrieve participants from local storage
@@ -74,11 +102,11 @@ export default function SoundsFishyBoardPage() {
       })
         .then((response) => response.json())
         .then((response: SoundsFishyResponse) => {
-          console.log("🚀 ~ .then ~ response:", response)
           const audioUrl = `data:audio/mp3;base64,${response.questionAudio}`;
           const parsedScenario: SoundsFishyScenario = JSON.parse(response.scenario);
-          console.log("🚀 ~ .then ~ parsedScenario:", parsedScenario)
           setGeneratedQuestion(parsedScenario.question);
+          setAnswer(parsedScenario.answer);
+          setFact(parsedScenario.reference);
           setSound(audioUrl);
         })
         .catch((err) => {
@@ -88,6 +116,7 @@ export default function SoundsFishyBoardPage() {
         .finally(() => {
           setIsLoading(false);
           setSelectedCategory("");
+          setCustomCategory("");
         });
     }
   }, [selectedCategory]);
@@ -99,8 +128,8 @@ export default function SoundsFishyBoardPage() {
         <Stack spacing={1}>
           <Typography variant="h5">Welcome to Sounds Fishy – A Game of Deception! 🐟</Typography>
           <Typography variant="body1">
-            Bluff, guess, and uncover the truth in this fun trivia game. 
-            Play with friends, create fake answers, and see if you can outwit the Guesser!
+            Bluff, guess, and uncover the truth in this fun trivia game. Play with friends, create
+            fake answers, and see if you can outwit the Guesser!
           </Typography>
           <Stack
             direction={{ xs: "column", md: "row" }}
@@ -132,19 +161,20 @@ export default function SoundsFishyBoardPage() {
                 border: "1px solid white",
                 borderRadius: "8px",
                 height: "100%",
-                position: "relative",
+                position: "relative"
               }}
             >
               <Typography variant="h5">
                 {isLoading ? (
                   <Stack direction="row" alignItems="center" spacing={1}>
-                    <Typography variant="h5">Generating...</Typography>
+                    <Typography variant="h5">{loadingText}</Typography>
                     <CircularProgress size={24} />
                   </Stack>
                 ) : (
                   generatedQuestion
                 )}
               </Typography>
+              {}
               <div
                 style={{
                   position: "absolute",
@@ -172,6 +202,7 @@ export default function SoundsFishyBoardPage() {
                         variant="outlined"
                         fullWidth
                         sx={{ flex: 1, wordBreak: "break-word" }}
+                        disabled={isLoading}
                         onClick={() => handleClickCategory(category.name)}
                       >
                         {category.name}
@@ -187,6 +218,7 @@ export default function SoundsFishyBoardPage() {
                         variant="outlined"
                         fullWidth
                         sx={{ flex: 1, wordBreak: "break-word" }}
+                        disabled={isLoading}
                         onClick={() => handleClickCategory(category.name)}
                       >
                         {category.name}
@@ -194,13 +226,34 @@ export default function SoundsFishyBoardPage() {
                     );
                   })}
                 </Stack>
+                <Stack direction="row" spacing={2} justifyContent="center">
+                  <TextField
+                    required
+                    id="outlined-required"
+                    label="Custom Category"
+                    sx={{ width: "100%" }}
+                    value={customCategory}
+                    onChange={(e) => setCustomCategory(e.target.value)}
+                  />
+                  <Button
+                    variant="contained"
+                    disabled={isLoading}
+                    onClick={handleSubmitCustomCategory}
+                  >
+                    <SendIcon />
+                  </Button>
+                </Stack>
               </Stack>
             </Container>
           </Stack>
 
           {/* Right Section */}
-          <Stack sx={{ width: { xs: '100%', md: '50%' } }} spacing={2}>
-          <Timer />
+          <Stack sx={{ width: { xs: "100%", md: "50%" } }} spacing={2}>
+            <AnswerContainer
+              question={generatedQuestion}
+              answer={answer}
+              fact={fact}
+            />
           </Stack>
         </Stack>
 
