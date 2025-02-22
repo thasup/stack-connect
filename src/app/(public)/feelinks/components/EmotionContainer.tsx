@@ -16,7 +16,7 @@ import {
 import { getGameData, updateScore } from "@/utils/helper";
 import { Emotion, Participant } from "@/types/feelinks";
 import SendIcon from "@mui/icons-material/Send";
-import Timer from "./Timer";
+import Timer from "@/components/Timer";
 
 const allPositiveEmotions = [
   { name: "Love", emoji: "❤️" },

@@ -5,8 +5,13 @@ import AccessAlarmIcon from "@mui/icons-material/AccessAlarm";
 
 const TIME_LEFT = 60;
 
-const Timer = () => {
-  const [seconds, setSeconds] = useState(TIME_LEFT); // 60 seconds
+interface TimerProps {
+  interval?: number;
+}
+
+const Timer = (props: TimerProps) => {
+  const { interval } = props;
+  const [seconds, setSeconds] = useState(interval || TIME_LEFT); // 60 seconds
   const [isActive, setIsActive] = useState(false);
   const [isTimeout, setIsTimeout] = useState(false);
 
