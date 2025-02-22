@@ -22,7 +22,7 @@ const RegisterContainer = () => {
     });
   };
 
-  const handleAdd = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleAdd = (event: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLDivElement>) => {
     event.preventDefault();
     if (!formData.name) {
       return;
@@ -43,6 +43,13 @@ const RegisterContainer = () => {
     setFormData({
       name: ""
     });
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>): void => {
+    if (event.key === "Enter") {
+      event.preventDefault(); // Prevent the default action if necessary
+      handleAdd(event);
+    }
   };
 
   const particapantBadges = useMemo(() => {
@@ -97,9 +104,10 @@ const RegisterContainer = () => {
             label="Name"
             name="name"
             value={formData.name}
-            onChange={handleChange}
             variant="outlined"
             required
+            onChange={handleChange}
+            onKeyDown={handleKeyDown}
           />
           <Button variant="contained" color="primary" onClick={handleAdd}>
             Add Participant
