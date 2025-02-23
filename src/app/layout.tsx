@@ -7,7 +7,7 @@ import { GoogleAnalytics } from '@next/third-parties/google'
 
 import theme from "@/theme";
 import "./globals.css";
-import Favicon from "@/components/Favicon";
+// import Favicon from "@/components/Favicon";
 
 const nunito = Nunito({
   weight: ["300", "400", "500", "700"],
@@ -42,10 +42,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Favicon />
       <body className={`${nunito.variable} antialiased`}>
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
+            {/* <Favicon /> */}
             {children}
             <GoogleAnalytics gaId="G-D0ZVT7CRGV" />
             <Analytics />

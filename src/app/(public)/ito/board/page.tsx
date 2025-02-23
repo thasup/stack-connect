@@ -5,7 +5,6 @@ import {
   Stack,
   Typography,
   Button,
-  CircularProgress,
   TextField,
   FormControl,
   InputLabel,
@@ -15,13 +14,12 @@ import {
 } from "@mui/material";
 import { getGameData, resetGameData, shuffleArray } from "@/utils/helper";
 import { Participant } from "@/types/feelinks";
-import AudioPlayer from "@/components/AudioPlayer";
 import { useRouter } from "next/navigation";
-import AnswerContainer from "../components/AnswerContainer";
 import { ROUTE } from "@/types/common";
 import SendIcon from "@mui/icons-material/Send";
 import StatsContainer from "@/components/StatsContainer";
 import { ItoResponse } from "@/types/ito";
+import ItoCardContainer from "../components/ItoCardContainer";
 
 const categories = [
   { name: "Animals & Nature", icon: "🐾" },
@@ -49,12 +47,11 @@ const languages = [
   { name: "Russian" }
 ];
 
-const SERVER_DELAY_TIME_LIMIT = 10000;
 const CHUNK_SIZE = 3;
 
 export default function SoundsFishyBoardPage() {
   const router = useRouter();
-  const [generatedQuestion, setGeneratedQuestion] = useState(
+  const [question, setQuestion] = useState(
     "Please select a category to generate question."
   );
   const [isLoading, setIsLoading] = useState(false);
@@ -66,7 +63,6 @@ export default function SoundsFishyBoardPage() {
     most: ""
   });
   const [language, setLanguage] = useState("English");
-  const [loadingText, setLoadingText] = useState("Generating...");
   const [participants, setParticipants] = useState<Participant[]>([]);
 
   function handleClickCategory(category: string) {
@@ -91,21 +87,6 @@ export default function SoundsFishyBoardPage() {
       categories.slice(i * CHUNK_SIZE, i * CHUNK_SIZE + CHUNK_SIZE)
     );
   };
-
-  useEffect(() => {
-    setLoadingText("Generating...");
-    let timeoutId: NodeJS.Timeout | null = null;
-    if (isLoading) {
-      timeoutId = setTimeout(() => {
-        setLoadingText("Please wait, we're waking our lazy server...");
-      }, SERVER_DELAY_TIME_LIMIT);
-    }
-    return () => {
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-      }
-    };
-  }, [isLoading]);
 
   useEffect(() => {
     // retrieve participants from local storage
@@ -137,7 +118,7 @@ export default function SoundsFishyBoardPage() {
         .then((response: ItoResponse) => {
           const audioUrl = `data:audio/mp3;base64,${response.audio}`;
           const data = response.data;
-          setGeneratedQuestion(data.question);
+          setQuestion(data.question);
           setLabel({
             least: data.least,
             most: data.most
@@ -145,7 +126,7 @@ export default function SoundsFishyBoardPage() {
           setSound(audioUrl);
         })
         .catch((err) => {
-          setGeneratedQuestion("Something went wrong, please try again.");
+          setQuestion("Something went wrong, please try again.");
           console.error(err);
         })
         .finally(() => {
@@ -178,6 +159,7 @@ export default function SoundsFishyBoardPage() {
             spacing={2}
             alignItems={{ xs: "flex-start", md: "center" }}
             justifyContent="space-between"
+            sx={{ pt: "24px" }}
           >
             <Typography variant="h6">Player Turn: WIP...</Typography>
             <Button
@@ -195,47 +177,13 @@ export default function SoundsFishyBoardPage() {
         <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
           {/* Left Section */}
           <Stack sx={{ width: { xs: "100%", md: "50%" } }} spacing={2}>
-            {/* Question Panel */}
-            <Container
-              sx={{
-                mt: 4,
-                p: 4,
-                border: "1px solid white",
-                borderRadius: "8px",
-                height: "100%",
-                position: "relative"
-              }}
-            >
-              <Typography variant="h5">
-                {isLoading ? (
-                  <Stack direction="row" alignItems="center" spacing={1}>
-                    <Typography variant="h5">{loadingText}</Typography>
-                    <CircularProgress size={24} />
-                  </Stack>
-                ) : (
-                  generatedQuestion
-                )}
-              </Typography>
-              {}
-              <div
-                style={{
-                  position: "absolute",
-                  bottom: "15px",
-                  right: "15px",
-                  cursor: "pointer"
-                }}
-              >
-                <AudioPlayer audioUrl={sound} />
-              </div>
-            </Container>
-
             {/* Category Panel */}
             <Container
               maxWidth="md"
               sx={{ mt: 4, p: 4, border: "1px solid white", borderRadius: "8px" }}
             >
               <Stack direction="column" spacing={2} justifyContent="center" height="100%">
-                <Typography variant="h6">Select one of categories</Typography>
+                <Typography variant="h6">Pick Your Theme!</Typography>
                 {categoryChunks().map((chunk, index) => (
                   <Stack key={index} direction="row" spacing={2} justifyContent="center">
                     {chunk.map((category) => (
@@ -280,7 +228,7 @@ export default function SoundsFishyBoardPage() {
                   <TextField
                     required
                     id="outlined-required"
-                    label="Custom Category"
+                    label="Custom Theme"
                     sx={{ width: "100%" }}
                     value={customCategory}
                     disabled={isLoading}
@@ -300,7 +248,12 @@ export default function SoundsFishyBoardPage() {
 
           {/* Right Section */}
           <Stack sx={{ width: { xs: "100%", md: "50%" } }} spacing={2}>
-            <AnswerContainer label={label} />
+            <ItoCardContainer
+              question={question}
+              sound={sound}
+              label={label}
+              disabled={isLoading}
+            />
           </Stack>
         </Stack>
 
