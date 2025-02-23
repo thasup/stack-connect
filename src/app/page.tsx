@@ -9,6 +9,10 @@ const links = [
   {
     href: "/sounds-fishy",
     title: "🐟 Sounds Fishy"
+  },
+  {
+    href: "/ito",
+    title: "🎲 ITO"
   }
 ];
 
@@ -55,6 +59,8 @@ export default function Home() {
                       p: 4,
                       border: "1px solid white",
                       borderRadius: "8px",
+                      minWidth: "200px",
+                      textAlign: "center",
                       transition: "all 0.3s ease-in-out",
                       "&:hover": {
                         boxShadow: "0 0 20px 0 rgba(0, 191, 255, 0.8)",
