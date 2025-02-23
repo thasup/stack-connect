@@ -8,7 +8,7 @@ export default function Favicon() {
   const [favicon, setFavicon] = useState('/favicon.ico');
 
   useEffect(() => {
-    const currentPath = window.location.pathname;
+    const currentPath = window?.location?.pathname;
     if (currentPath === ROUTE.FEELINKS) {
       setFavicon('../public/favicon/feelinks.ico');
     } else if (currentPath === ROUTE.SOUNDS_FISHY) {
@@ -18,7 +18,7 @@ export default function Favicon() {
     }
     console.log('favicon >>>', {currentPath, favicon});
 
-  }, [window.location.pathname]);
+  }, [window?.location?.pathname]);
 
   return (
     <html lang="en">
