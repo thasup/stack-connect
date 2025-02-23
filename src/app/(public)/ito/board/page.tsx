@@ -36,14 +36,14 @@ import ItoCardContainer from "../components/ItoCardContainer";
 //   { name: "Party Time", icon: "🎉" }
 // ];
 
-const categories = [
-  { name: "Numbers & Mathematics", icon: "🔢" },
-  { name: "Famous Landmarks", icon: "🏛️" },
-  { name: "Colors & Shapes", icon: "🎨" },
-  { name: "Everyday Objects", icon: "🛍️" },
-  { name: "Popular Foods", icon: "🍕" },
-  { name: "Random Fun", icon: "🎲" }
-];
+// const categories = [
+//   { name: "Numbers & Mathematics", icon: "🔢" },
+//   { name: "Famous Landmarks", icon: "🏛️" },
+//   { name: "Colors & Shapes", icon: "🎨" },
+//   { name: "Everyday Objects", icon: "🛍️" },
+//   { name: "Popular Foods", icon: "🍕" },
+//   { name: "Random Fun", icon: "🎲" }
+// ];
 
 const languages = [
   { name: "English" },
@@ -56,7 +56,7 @@ const languages = [
   { name: "Russian" }
 ];
 
-const CHUNK_SIZE = 3;
+// const CHUNK_SIZE = 3;
 
 export default function SoundsFishyBoardPage() {
   const router = useRouter();
@@ -91,11 +91,11 @@ export default function SoundsFishyBoardPage() {
     setLanguage(event.target.value);
   }
 
-  const categoryChunks = () => {
-    return Array.from({ length: Math.ceil(categories.length / CHUNK_SIZE) }, (_, i) =>
-      categories.slice(i * CHUNK_SIZE, i * CHUNK_SIZE + CHUNK_SIZE)
-    );
-  };
+  // const categoryChunks = () => {
+  //   return Array.from({ length: Math.ceil(categories.length / CHUNK_SIZE) }, (_, i) =>
+  //     categories.slice(i * CHUNK_SIZE, i * CHUNK_SIZE + CHUNK_SIZE)
+  //   );
+  // };
 
   useEffect(() => {
     // retrieve participants from local storage
