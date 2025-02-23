@@ -53,7 +53,10 @@ export default function ItoCardContainer({
 }: ItoCardContainerProps) {
   const [loadingText, setLoadingText] = useState("Generating...");
 
-  const randomTheme = cardTheme[Math.floor(Math.random() * cardTheme.length)];
+  const randomTheme = useMemo(() => {
+    return cardTheme[Math.floor(Math.random() * cardTheme.length)];
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [question]);
 
   useEffect(() => {
     setLoadingText("Generating...");
@@ -104,7 +107,7 @@ export default function ItoCardContainer({
               width="100%"
               height={300}
               sx={{
-                borderRadius: "16px",
+                borderRadius: "16px"
               }}
             />
           ) : (
@@ -113,7 +116,7 @@ export default function ItoCardContainer({
                 backgroundColor: randomTheme.primaryBackground,
                 borderRadius: "16px",
                 padding: "16px",
-                minHeight: "300px",
+                minHeight: "300px"
               }}
             >
               <CardContent sx={{ height: "100%", p: "16px" }}>
@@ -141,21 +144,21 @@ export default function ItoCardContainer({
                   >
                     {disabled ? (
                       <Stack direction="row" alignItems="center" spacing={1}>
-                        <Typography variant="h5" fontWeight={700}>{loadingText}</Typography>
+                        <Typography variant="h5" fontWeight={700}>
+                          {loadingText}
+                        </Typography>
                         <CircularProgress size={24} />
                       </Stack>
                     ) : (
                       question
                     )}
                   </Typography>
-                  <Box sx={{ display: "flex", justifyContent: "space-between", mt: 2, width: "100%" }}>
+                  <Box
+                    sx={{ display: "flex", justifyContent: "space-between", mt: 2, width: "100%" }}
+                  >
                     {labels.map((label, index) => (
                       <Box key={index}>
-                        <Stack
-                          direction="column"
-                          alignItems="center"
-                          gap={2}
-                        >
+                        <Stack direction="column" alignItems="center" gap={2}>
                           <Typography
                             variant="body1"
                             align="center"
@@ -191,6 +194,16 @@ export default function ItoCardContainer({
               </CardContent>
             </Card>
           )}
+          <Typography variant="h5">
+            {disabled && (
+              <Stack direction="row" alignItems="center" spacing={1}>
+                <Typography variant="h5" fontWeight={700}>
+                  {loadingText}
+                </Typography>
+                <CircularProgress size={24} />
+              </Stack>
+            )}
+          </Typography>
         </Stack>
         <div
           style={{
@@ -200,7 +213,7 @@ export default function ItoCardContainer({
             cursor: "pointer"
           }}
         >
-          {sound && (<AudioPlayer audioUrl={sound} />)}
+          {sound && <AudioPlayer audioUrl={sound} />}
         </div>
       </Container>
     </Stack>

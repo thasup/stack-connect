@@ -21,19 +21,28 @@ import StatsContainer from "@/components/StatsContainer";
 import { ItoResponse } from "@/types/ito";
 import ItoCardContainer from "../components/ItoCardContainer";
 
+// const categories = [
+//   { name: "Animals & Nature", icon: "🐾" },
+//   { name: "Famous People", icon: "👑" },
+//   { name: "Food & Drink", icon: "🍕" },
+//   { name: "Movies & TV", icon: "🍿" },
+//   { name: "Music & Lyrics", icon: "🎶" },
+//   { name: "Sports & Games", icon: "⚽" },
+//   { name: "Travel & Adventures", icon: "🌍" },
+//   { name: "Technology & Gadgets", icon: "💻" },
+//   { name: "Books & Literature", icon: "📚" },
+//   { name: "Mythology & Legends", icon: "⚡" },
+//   { name: "Action & Movement", icon: "💃" },
+//   { name: "Party Time", icon: "🎉" }
+// ];
+
 const categories = [
-  { name: "Animals & Nature", icon: "🐾" },
-  { name: "Famous People", icon: "👑" },
-  { name: "Food & Drink", icon: "🍕" },
-  { name: "Movies & TV", icon: "🍿" },
-  { name: "Music & Lyrics", icon: "🎶" },
-  { name: "Sports & Games", icon: "⚽" },
-  { name: "Travel & Adventures", icon: "🌍" },
-  { name: "Technology & Gadgets", icon: "💻" },
-  { name: "Books & Literature", icon: "📚" },
-  { name: "Mythology & Legends", icon: "⚡" },
-  { name: "Action & Movement", icon: "💃" },
-  { name: "Party Time", icon: "🎉" }
+  { name: "Numbers & Mathematics", icon: "🔢" },
+  { name: "Famous Landmarks", icon: "🏛️" },
+  { name: "Colors & Shapes", icon: "🎨" },
+  { name: "Everyday Objects", icon: "🛍️" },
+  { name: "Popular Foods", icon: "🍕" },
+  { name: "Random Fun", icon: "🎲" }
 ];
 
 const languages = [
@@ -184,7 +193,7 @@ export default function SoundsFishyBoardPage() {
             >
               <Stack direction="column" spacing={2} justifyContent="center" height="100%">
                 <Typography variant="h6">Pick Your Theme!</Typography>
-                {categoryChunks().map((chunk, index) => (
+                {/* {categoryChunks().map((chunk, index) => (
                   <Stack key={index} direction="row" spacing={2} justifyContent="center">
                     {chunk.map((category) => (
                       <Button
@@ -199,7 +208,7 @@ export default function SoundsFishyBoardPage() {
                       </Button>
                     ))}
                   </Stack>
-                ))}
+                ))} */}
 
                 <Stack
                   direction={{ xs: "column", md: "row" }}
@@ -242,6 +251,18 @@ export default function SoundsFishyBoardPage() {
                     <SendIcon />
                   </Button>
                 </Stack>
+
+                <Typography variant="h6">OR</Typography>
+                <Button
+                  variant="outlined"
+                  size="large"
+                  fullWidth
+                  sx={{ flex: 1, wordBreak: "break-word" }}
+                  disabled={isLoading}
+                  onClick={() => handleClickCategory("Random Fun")}
+                >
+                  Random Fun 🎉
+                </Button>
               </Stack>
             </Container>
           </Stack>
