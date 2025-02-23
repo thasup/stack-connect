@@ -6,7 +6,8 @@ import ForumIcon from '@mui/icons-material/Forum';
 import EmojiObjectsIcon from '@mui/icons-material/EmojiObjects';
 
 import Content from "@/components/Content";
-import RegisterContainer from "./components/RegisterContainer";
+import RegisterContainer from "@/components/RegisterContainer";
+import { ROUTE } from "@/types/common";
 
 const items = [
   {
@@ -86,7 +87,7 @@ export default function SoundsFishy() {
             title="🐟 Sounds Fishy"
             items={items}
           />
-          <RegisterContainer />
+          <RegisterContainer link={`${ROUTE.SOUNDS_FISHY}/board`} />
         </Stack>
       </Stack>
     </Stack>

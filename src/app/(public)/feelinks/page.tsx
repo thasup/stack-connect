@@ -6,8 +6,9 @@ import AutoAwesomeRoundedIcon from "@mui/icons-material/AutoAwesomeRounded";
 import ColorLensIcon from '@mui/icons-material/ColorLens';
 import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
 
-import RegisterContainer from "./components/RegisterContainer";
 import Content from "@/components/Content";
+import { ROUTE } from "@/types/common";
+import RegisterContainer from "@/components/RegisterContainer";
 
 const items = [
   {
@@ -72,7 +73,7 @@ export default function Feelinks() {
             title="💖 Feelinks"
             items={items}
           />
-          <RegisterContainer />
+          <RegisterContainer link={`${ROUTE.FEELINKS}/board`} />
         </Stack>
       </Stack>
     </Stack>

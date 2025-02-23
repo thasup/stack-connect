@@ -9,7 +9,12 @@ import { useRouter } from 'next/navigation'
 import { Participant } from "@/types/feelinks";
 import { addParticipant, removeParticipant } from "@/utils/helper";
 
-const RegisterContainer = () => {
+interface RegisterContainerProps {
+  link: string
+}
+
+export default function RegisterContainer(props: RegisterContainerProps) {
+  const { link } = props;
   const router = useRouter();
   const [formData, setFormData] = useState({
     name: ""
@@ -118,7 +123,7 @@ const RegisterContainer = () => {
               endIcon={<SendIcon />}
               disabled={participants.length <= 1}
               fullWidth
-              onClick={() => router.push('/feelinks/board')}
+              onClick={() => router.push(link)}
             >
               Proceed
             </Button>
@@ -145,5 +150,3 @@ const RegisterContainer = () => {
     </Stack>
   );
 };
-
-export default RegisterContainer;
