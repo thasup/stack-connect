@@ -17,7 +17,7 @@ import { getGameData, resetGameData, shuffleArray } from "@/utils/helper";
 import { Participant } from "@/types/feelinks";
 import AudioPlayer from "@/components/AudioPlayer";
 import { useRouter } from "next/navigation";
-import { SoundsFishyResponse, SoundsFishyScenario } from "@/types/sounds-fishy";
+import { SoundsFishyResponse } from "@/types/sounds-fishy";
 import AnswerContainer from "../components/AnswerContainer";
 import { ROUTE } from "@/types/common";
 import SendIcon from "@mui/icons-material/Send";
@@ -122,10 +122,10 @@ export default function SoundsFishyBoardPage() {
         .then((response) => response.json())
         .then((response: SoundsFishyResponse) => {
           const audioUrl = `data:audio/mp3;base64,${response.questionAudio}`;
-          const parsedScenario: SoundsFishyScenario = JSON.parse(response.scenario);
-          setGeneratedQuestion(parsedScenario.question);
-          setAnswer(parsedScenario.answer);
-          setFact(parsedScenario.reference);
+          const data = response.scenario;
+          setGeneratedQuestion(data.question);
+          setAnswer(data.answer);
+          setFact(data.reference);
           setSound(audioUrl);
         })
         .catch((err) => {
@@ -138,7 +138,7 @@ export default function SoundsFishyBoardPage() {
           setCustomCategory("");
         });
     }
-  }, [selectedCategory]);
+  }, [language, selectedCategory]);
 
   return (
     <Container maxWidth="lg" sx={{ mt: 4 }}>
@@ -281,7 +281,7 @@ export default function SoundsFishyBoardPage() {
                   />
                   <Button
                     variant="contained"
-                    disabled={isLoading}
+                    disabled={isLoading || customCategory === ""}
                     onClick={handleSubmitCustomCategory}
                   >
                     <SendIcon />

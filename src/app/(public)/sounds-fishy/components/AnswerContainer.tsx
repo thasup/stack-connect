@@ -1,6 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { Container, Stack, Button, Typography } from "@mui/material";
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import LightbulbIcon from '@mui/icons-material/Lightbulb';
 
 interface AnswerContainerProps {
   question: string;
@@ -28,12 +31,16 @@ const AnswerContainer = ({ question, answer, fact, disabled }: AnswerContainerPr
           p: 4,
           border: "1px solid white",
           borderRadius: "8px",
-          height: "100%"
+          height: "100%",
+          minHeight: "230px"
         }}
       >
         <Stack direction="column" gap={2}>
           <Stack direction="row" gap={2} justifyContent="space-between">
-            <Typography variant="h6">Reveal the Answer</Typography>
+            <Stack direction="row" gap={1} alignItems="center">
+              <Typography variant="h6">Reveal the Answer</Typography>
+              {isShowAnswer ? <VisibilityIcon /> : <VisibilityOffIcon />}
+            </Stack>
             <Button
               variant="contained"
               disabled={disabled}
@@ -58,7 +65,10 @@ const AnswerContainer = ({ question, answer, fact, disabled }: AnswerContainerPr
       >
         <Stack direction="column" gap={2}>
           <Stack direction="row" gap={2} justifyContent="space-between">
-            <Typography variant="h6">Fact</Typography>
+            <Stack direction="row" gap={1} alignItems="center">
+              <Typography variant="h6">Fact</Typography>
+              <LightbulbIcon />
+            </Stack>
           </Stack>
           {isShowAnswer && <Typography variant="h6">{fact}</Typography>}
         </Stack>

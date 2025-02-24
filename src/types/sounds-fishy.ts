@@ -8,10 +8,10 @@ export interface SoundsFishyScenario {
 
 export interface SoundsFishyAudio {
   questionAudio: string
-  answerAudio: string
-  referenceAudio: string
+  answerAudio?: string
+  referenceAudio?: string
 }
 
 export interface SoundsFishyResponse extends SoundsFishyAudio {
-  scenario: string;
+  scenario: SoundsFishyScenario;
 }
