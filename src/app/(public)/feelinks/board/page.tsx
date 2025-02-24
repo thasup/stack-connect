@@ -61,7 +61,7 @@ export default function FeelinksBoardPage() {
   useEffect(() => {
     if (selectedCategory) {
       setIsLoading(true);
-      fetch(process.env.NEXT_PUBLIC_AI_ENDPOINT, {
+      fetch(`${process.env.NEXT_PUBLIC_AI_ENDPOINT}/feelinks`, {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded"
@@ -160,7 +160,7 @@ export default function FeelinksBoardPage() {
               sx={{ mt: 4, p: 4, border: "1px solid white", borderRadius: "8px" }}
             >
               <Stack direction="column" spacing={2} justifyContent="center" height="100%">
-                <Typography variant="h6">Select one of categories</Typography>
+                <Typography variant="h6">Select the category</Typography>
                 <Stack direction="row" spacing={2} justifyContent="center">
                   {categories.slice(0, 3).map((category) => {
                     return (
@@ -169,6 +169,7 @@ export default function FeelinksBoardPage() {
                         variant="outlined"
                         fullWidth
                         sx={{ flex: 1, wordBreak: "break-word" }}
+                        disabled={isLoading}
                         onClick={() => handleClickCategory(category.name)}
                       >
                         {category.name}
@@ -184,6 +185,7 @@ export default function FeelinksBoardPage() {
                         variant="outlined"
                         fullWidth
                         sx={{ flex: 1, wordBreak: "break-word" }}
+                        disabled={isLoading}
                         onClick={() => handleClickCategory(category.name)}
                       >
                         {category.name}
