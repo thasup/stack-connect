@@ -23,7 +23,14 @@ interface ItoCardContainerProps {
   disabled: boolean;
 }
 
-const cardTheme = [
+interface CardTheme {
+  primaryBackground: string;
+  secondaryBackground: string;
+  questionText: string;
+  labelText: string;
+}
+
+const cardTheme: CardTheme[] = [
   {
     primaryBackground: "#f5cf39",
     secondaryBackground: "#fff",
@@ -57,6 +64,34 @@ export default function ItoCardContainer({
     return cardTheme[Math.floor(Math.random() * cardTheme.length)];
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [question]);
+
+  function getBoxShadow(theme: CardTheme) {
+    switch (theme) {
+      case cardTheme[0]: // Light background with yellow
+        return `
+          0 2px 4px rgba(0, 0, 0, 0.3),
+          0 4px 10px rgba(255, 230, 0, 0.3)
+        `;
+
+      case cardTheme[1]: // Dark background with white text
+        return `
+          0 2px 4px rgba(0, 0, 0, 0.3),
+          0 4px 10px rgba(255, 255, 255, 0.2)
+        `;
+
+      case cardTheme[2]: // Dark background with yellow accents
+        return `
+          0 2px 4px rgba(0, 0, 0, 0.3),
+          0 4px 10px rgba(255, 230, 0, 0.3)
+        `;
+
+      default:
+        return `
+          0 2px 4px rgba(0, 0, 0, 0.3),
+          0 4px 10px rgba(255, 230, 0, 0.3)
+        `;
+    }
+  }
 
   useEffect(() => {
     setLoadingText("Generating...");
@@ -116,7 +151,27 @@ export default function ItoCardContainer({
                 backgroundColor: randomTheme.primaryBackground,
                 borderRadius: "16px",
                 padding: "16px",
-                minHeight: "300px"
+                minHeight: "300px",
+                boxShadow: getBoxShadow(randomTheme),
+                transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                "&:hover": {
+                  transform: "scale(1.01)",
+                  boxShadow:
+                    randomTheme.primaryBackground === "#f5cf39"
+                      ? `
+                          0 4px 8px rgba(0, 0, 0, 0.4),
+                          0 8px 16px rgba(255, 230, 0, 0.5)
+                        `
+                      : randomTheme.primaryBackground === "#fff"
+                      ? `
+                          0 4px 8px rgba(0, 0, 0, 0.4),
+                          0 8px 16px rgba(0, 0, 0, 0.3)
+                        `
+                      : `
+                          0 4px 8px rgba(0, 0, 0, 0.4),
+                          0 8px 16px rgba(255, 230, 0, 0.5)
+                        `
+                }
               }}
             >
               <CardContent sx={{ height: "100%", p: "16px" }}>
