@@ -40,7 +40,7 @@ const items = [
 
 export default function Feelinks() {
   return (
-    <LobbyLayout backgroundImage="https://res.cloudinary.com/thasup/image/upload/v1740741437/central/landscape/alex-mesmer-kRMKxda6aM0-unsplash_ozttwe.jpg">
+    <LobbyLayout backgroundImage="https://res.cloudinary.com/thasup/image/upload/v1740741438/central/landscape/justin-bisson-beck-YwFHhIgG77M-unsplash_iljp5o.jpg">
       <Content
         title="💖 Feelinks"
         items={items}

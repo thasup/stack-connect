@@ -39,7 +39,7 @@ const items = [
 
 export default function ItoLobbyPage() {
   return (
-    <LobbyLayout backgroundImage="https://res.cloudinary.com/thasup/image/upload/v1740769837/stack%20connect/ito-masked-banner_swbzhi.jpg">
+    <LobbyLayout backgroundImage="https://res.cloudinary.com/thasup/image/upload/v1740741437/central/landscape/alex-mesmer-kRMKxda6aM0-unsplash_ozttwe.jpg">
       <Content
         title="🎲 ITO"
         items={items}

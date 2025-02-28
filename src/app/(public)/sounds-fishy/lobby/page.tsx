@@ -73,7 +73,7 @@ const items = [
 
 export default function SoundsFishyLobbyPage() {
   return (
-    <LobbyLayout backgroundImage="https://res.cloudinary.com/thasup/image/upload/v1740741437/central/landscape/alex-mesmer-kRMKxda6aM0-unsplash_ozttwe.jpg">
+    <LobbyLayout backgroundImage="https://res.cloudinary.com/thasup/image/upload/v1740741434/central/landscape/tim-stief-YFFGkE3y4F8-unsplash_cbbwzg.jpg">
       <Content title="🐟 Sounds Fishy" items={items} />
       <RegisterContainer link={ROUTE.SOUNDS_FISHY.SUB_PAGE.GAME.PATH} />
     </LobbyLayout>

@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 
+import FrostGlassBox from "@/components/FrostGlassBox";
 interface Item {
   icon: React.JSX.Element;
   title: string;
@@ -24,26 +25,11 @@ export default function Content(props: ContentProps) {
         </Typography>
       </Box>
       {items.map((item, index) => (
-        <Box
-          key={index}
-          sx={{
-            position: "relative",
-            marginTop: 2,
-            padding: 3,
-            borderRadius: (theme) => theme.shape.borderRadius,
-            backgroundColor: "rgba(0, 0, 0, 0.25)", // Semi-transparent white
-            backdropFilter: "blur(10px)", // Frosted glass effect
-            boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)", // Shadow for depth
-            zIndex: 10 // Ensure it is above the card background
-          }}
-        >
+        <FrostGlassBox key={index}>
           <Stack direction="row" sx={{ gap: 2 }}>
             {item.icon}
             <div>
-              <Typography
-                gutterBottom
-                sx={{ fontWeight: "medium", color: "white" }}
-              >
+              <Typography gutterBottom sx={{ fontWeight: "medium", color: "white" }}>
                 {item.title}
               </Typography>
               <Typography variant="body2" sx={{ color: "white" }}>
@@ -51,7 +37,7 @@ export default function Content(props: ContentProps) {
               </Typography>
             </div>
           </Stack>
-        </Box>
+        </FrostGlassBox>
       ))}
     </Stack>
   );

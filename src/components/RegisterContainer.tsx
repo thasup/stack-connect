@@ -1,16 +1,17 @@
 "use client";
 import React, { useMemo, useState } from "react";
-import { TextField, Button, Container, Stack, Typography, Chip, Avatar } from "@mui/material";
+import { TextField, Button, Stack, Typography, Chip, Avatar } from "@mui/material";
 import { createAvatar } from "@dicebear/core";
 import { thumbs } from "@dicebear/collection";
 import SendIcon from "@mui/icons-material/Send";
-import { useRouter } from 'next/navigation'
+import { useRouter } from "next/navigation";
 
 import { Participant } from "@/types/feelinks";
 import { addParticipant, removeParticipant } from "@/utils/helper";
+import FrostGlassBox from "@/components/FrostGlassBox";
 
 interface RegisterContainerProps {
-  link: string
+  link: string;
 }
 
 export default function RegisterContainer(props: RegisterContainerProps) {
@@ -28,7 +29,9 @@ export default function RegisterContainer(props: RegisterContainerProps) {
     });
   };
 
-  const handleAdd = (event: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLDivElement>) => {
+  const handleAdd = (
+    event: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLDivElement>
+  ) => {
     event.preventDefault();
     if (!formData.name) {
       return;
@@ -92,13 +95,10 @@ export default function RegisterContainer(props: RegisterContainerProps) {
 
   return (
     <Stack flexDirection="column" width="100%" spacing={2}>
-      <Container
-        maxWidth="sm"
+      <FrostGlassBox
         sx={{
           mt: 4,
-          p: 4,
-          border: "1px solid white",
-          borderRadius: "8px"
+          p: 4
         }}
       >
         <Typography variant="h6" component="h1" gutterBottom>
@@ -118,25 +118,22 @@ export default function RegisterContainer(props: RegisterContainerProps) {
           <Button variant="contained" color="primary" onClick={handleAdd}>
             Add Participant
           </Button>
-            <Button
-              variant="outlined"
-              endIcon={<SendIcon />}
-              disabled={participants.length <= 1}
-              fullWidth
-              onClick={() => router.push(link)}
-            >
-              Proceed
-            </Button>
+          <Button
+            variant="outlined"
+            endIcon={<SendIcon />}
+            disabled={participants.length <= 1}
+            fullWidth
+            onClick={() => router.push(link)}
+          >
+            Proceed
+          </Button>
         </Stack>
-      </Container>
+      </FrostGlassBox>
 
-      <Container
-        maxWidth="sm"
+      <FrostGlassBox
         sx={{
           mt: 4,
           p: 4,
-          border: "1px solid white",
-          borderRadius: "8px",
           height: "100%"
         }}
       >
@@ -146,7 +143,7 @@ export default function RegisterContainer(props: RegisterContainerProps) {
             {particapantBadges}
           </Stack>
         </Stack>
-      </Container>
+      </FrostGlassBox>
     </Stack>
   );
-};
+}
