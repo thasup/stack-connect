@@ -9,9 +9,9 @@ export default function Favicon() {
 
   useEffect(() => {
     const currentPath = window?.location?.pathname;
-    if (currentPath === ROUTE.FEELINKS) {
+    if (currentPath === ROUTE.FEELINKS.PATH) {
       setFavicon('../public/favicon/feelinks.ico');
-    } else if (currentPath === ROUTE.SOUNDS_FISHY) {
+    } else if (currentPath === ROUTE.SOUNDS_FISHY.PATH) {
       setFavicon('../public/favicon/sounds-fishy.ico');
     } else {
       setFavicon('./favicon.ico');

@@ -71,7 +71,7 @@ export default function ItoPage() {
             title="🎲 ITO"
             items={items}
           />
-          <RegisterContainer link={`${ROUTE.ITO}/board`} />
+          <RegisterContainer link={ROUTE.ITO.SUB_PAGE.GAME.PATH} />
         </Stack>
       </Stack>
     </Stack>

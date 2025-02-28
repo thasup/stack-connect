@@ -87,7 +87,7 @@ export default function SoundsFishy() {
             title="🐟 Sounds Fishy"
             items={items}
           />
-          <RegisterContainer link={`${ROUTE.SOUNDS_FISHY}/board`} />
+          <RegisterContainer link={ROUTE.SOUNDS_FISHY.SUB_PAGE.GAME.PATH} />
         </Stack>
       </Stack>
     </Stack>

@@ -58,7 +58,7 @@ const languages = [
 
 // const CHUNK_SIZE = 3;
 
-export default function SoundsFishyBoardPage() {
+export default function ItoGamePage() {
   const router = useRouter();
   const [question, setQuestion] = useState(
     "Please select a category to generate question."
@@ -80,7 +80,7 @@ export default function SoundsFishyBoardPage() {
 
   function handleEndGame() {
     resetGameData();
-    router.push(ROUTE.SOUNDS_FISHY);
+    router.push(ROUTE.ITO.PATH);
   }
 
   function handleSubmitCustomCategory() {

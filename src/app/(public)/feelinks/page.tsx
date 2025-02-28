@@ -73,7 +73,7 @@ export default function Feelinks() {
             title="💖 Feelinks"
             items={items}
           />
-          <RegisterContainer link={`${ROUTE.FEELINKS}/board`} />
+          <RegisterContainer link={ROUTE.FEELINKS.SUB_PAGE.BOARD.PATH} />
         </Stack>
       </Stack>
     </Stack>
