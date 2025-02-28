@@ -1,6 +1,4 @@
 import * as React from "react";
-import Stack from "@mui/material/Stack";
-
 import Diversity2RoundedIcon from "@mui/icons-material/Diversity2Rounded";
 import AutoAwesomeRoundedIcon from "@mui/icons-material/AutoAwesomeRounded";
 import ColorLensIcon from '@mui/icons-material/ColorLens';
@@ -9,6 +7,7 @@ import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
 import Content from "@/components/Content";
 import { ROUTE } from "@/types/common";
 import RegisterContainer from "@/components/RegisterContainer";
+import LobbyLayout from "@/components/layouts/LobbyLayout";
 
 const items = [
   {
@@ -39,43 +38,12 @@ const items = [
 
 export default function Feelinks() {
   return (
-    <Stack
-      direction="column"
-      component="main"
-      sx={[
-        {
-          justifyContent: "center",
-          height: "calc((1 - var(--template-frame-height, 0)) * 100%)",
-          marginTop: "max(40px - var(--template-frame-height, 0px), 0px)",
-          minHeight: "100%"
-        }
-      ]}
-    >
-      <Stack
-        direction={{ xs: "column-reverse", md: "row" }}
-        sx={{
-          justifyContent: "center",
-          gap: { xs: 6, sm: 12 },
-          p: 2,
-          mx: "auto"
-        }}
-      >
-        <Stack
-          direction={{ xs: "column-reverse", md: "row" }}
-          sx={{
-            justifyContent: "center",
-            gap: { xs: 6, sm: 12 },
-            p: { xs: 2, sm: 4 },
-            m: "auto"
-          }}
-        >
-          <Content
-            title="💖 Feelinks"
-            items={items}
-          />
-          <RegisterContainer link={ROUTE.FEELINKS.SUB_PAGE.BOARD.PATH} />
-        </Stack>
-      </Stack>
-    </Stack>
+    <LobbyLayout>
+      <Content
+        title="💖 Feelinks"
+        items={items}
+      />
+      <RegisterContainer link={ROUTE.FEELINKS.SUB_PAGE.BOARD.PATH} />
+    </LobbyLayout>
   );
 }

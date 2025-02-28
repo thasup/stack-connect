@@ -1,5 +1,4 @@
 import * as React from "react";
-import Stack from "@mui/material/Stack";
 import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
 import CelebrationIcon from '@mui/icons-material/Celebration';
 import ForumIcon from '@mui/icons-material/Forum';
@@ -8,6 +7,7 @@ import EmojiObjectsIcon from '@mui/icons-material/EmojiObjects';
 import Content from "@/components/Content";
 import RegisterContainer from "@/components/RegisterContainer";
 import { ROUTE } from "@/types/common";
+import LobbyLayout from "@/components/layouts/LobbyLayout";
 
 const items = [
   {
@@ -53,43 +53,12 @@ const items = [
 
 export default function SoundsFishy() {
   return (
-    <Stack
-      direction="column"
-      component="main"
-      sx={[
-        {
-          justifyContent: "center",
-          height: "calc((1 - var(--template-frame-height, 0)) * 100%)",
-          marginTop: "max(40px - var(--template-frame-height, 0px), 0px)",
-          minHeight: "100%"
-        }
-      ]}
-    >
-      <Stack
-        direction={{ xs: "column-reverse", md: "row" }}
-        sx={{
-          justifyContent: "center",
-          gap: { xs: 6, sm: 12 },
-          p: 2,
-          mx: "auto"
-        }}
-      >
-        <Stack
-          direction={{ xs: "column-reverse", md: "row" }}
-          sx={{
-            justifyContent: "center",
-            gap: { xs: 6, sm: 12 },
-            p: { xs: 2, sm: 4 },
-            m: "auto"
-          }}
-        >
-          <Content
-            title="🐟 Sounds Fishy"
-            items={items}
-          />
-          <RegisterContainer link={ROUTE.SOUNDS_FISHY.SUB_PAGE.GAME.PATH} />
-        </Stack>
-      </Stack>
-    </Stack>
+    <LobbyLayout>
+      <Content
+        title="🐟 Sounds Fishy"
+        items={items}
+      />
+      <RegisterContainer link={ROUTE.SOUNDS_FISHY.SUB_PAGE.GAME.PATH} />
+    </LobbyLayout>
   );
 }
