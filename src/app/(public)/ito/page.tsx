@@ -8,7 +8,8 @@ export default function ItoPage() {
   return (
     <FrontLayout
       backgroundImage="https://res.cloudinary.com/thasup/image/upload/v1740769837/stack%20connect/ito-masked-banner_swbzhi.jpg"
-      generatorLink={ROUTE.ITO.SUB_PAGE.GAME.PATH}
+      generatorLink={ROUTE.ITO.SUB_PAGE.GENERATOR.PATH}
+      gameLink={ROUTE.ITO.SUB_PAGE.LOBBY.PATH}
     />
   );
 }

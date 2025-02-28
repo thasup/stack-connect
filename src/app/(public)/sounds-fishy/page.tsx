@@ -9,7 +9,8 @@ export default function SoundsFishyPage() {
   return (
     <FrontLayout
       backgroundImage="https://res.cloudinary.com/thasup/image/upload/v1740769837/stack%20connect/ito-masked-banner_swbzhi.jpg"
-      generatorLink={ROUTE.SOUNDS_FISHY.SUB_PAGE.GAME.PATH}
+      generatorLink={ROUTE.SOUNDS_FISHY.SUB_PAGE.GENERATOR.PATH}
+      gameLink={ROUTE.SOUNDS_FISHY.SUB_PAGE.LOBBY.PATH}
     />
   );
 }

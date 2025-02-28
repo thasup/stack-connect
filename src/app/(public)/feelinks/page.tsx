@@ -11,6 +11,7 @@ export default function FeelinksPage() {
     <FrontLayout
       backgroundImage="https://res.cloudinary.com/thasup/image/upload/v1740769837/stack%20connect/ito-masked-banner_swbzhi.jpg"
       generatorLink={ROUTE.FEELINKS.SUB_PAGE.GAME.PATH}
+      gameLink={ROUTE.FEELINKS.SUB_PAGE.LOBBY.PATH}
     />
   );
 }
