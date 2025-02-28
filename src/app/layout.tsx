@@ -3,7 +3,7 @@ import { Nunito } from "next/font/google";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import { ThemeProvider } from "@mui/material/styles";
 import { Analytics } from "@vercel/analytics/next";
-import { GoogleAnalytics } from '@next/third-parties/google'
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 import theme from "@/theme";
 import "./globals.css";

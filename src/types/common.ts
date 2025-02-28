@@ -24,6 +24,11 @@ export const ROUTE = {
         PATH: '/feelinks/generator',
         TITLE: 'Feelinks Generator',
       },
+      LOBBY: {
+        NAME: 'lobby',
+        PATH: '/feelinks/lobby',
+        TITLE: 'Feelinks Lobby',
+      },
     }
   },
   SOUNDS_FISHY: {
@@ -46,6 +51,11 @@ export const ROUTE = {
         PATH: '/sounds-fishy/generator',
         TITLE: 'Sounds Fishy Generator',
       },
+      LOBBY: {
+        NAME: 'lobby',
+        PATH: '/sounds-fishy/lobby',
+        TITLE: 'Sounds Fishy Lobby',
+      },
     }
   },
   ITO: {
@@ -67,6 +77,11 @@ export const ROUTE = {
         NAME: 'generator',
         PATH: '/ito/generator',
         TITLE: 'ITO Generator',
+      },
+      LOBBY: {
+        NAME: 'lobby',
+        PATH: '/ito/lobby',
+        TITLE: 'ITO Lobby',
       },
     }
   },
