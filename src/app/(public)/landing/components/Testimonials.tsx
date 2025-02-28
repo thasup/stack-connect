@@ -13,46 +13,46 @@ import { useTheme } from '@mui/system';
 
 const userTestimonials = [
   {
-    avatar: <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />,
-    name: 'Remy Sharp',
-    occupation: 'Senior Engineer',
+    avatar: <Avatar alt="Alex" src="https://res.cloudinary.com/thasup/image/upload/v1740761387/central/avartar/lion_nyyvpk.jpg" />,
+    name: 'Alex',
+    occupation: 'The Lion',
     testimonial:
-      "I absolutely love how versatile this product is! Whether I'm tackling work projects or indulging in my favorite hobbies, it seamlessly adapts to my changing needs. Its intuitive design has truly enhanced my daily routine, making tasks more efficient and enjoyable.",
+      "Stack Connect made our team game nights truly special. It's the perfect way to bond, laugh, and build trust.",
   },
   {
-    avatar: <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />,
-    name: 'Travis Howard',
-    occupation: 'Lead Product Designer',
+    avatar: <Avatar alt="Marty" src="https://res.cloudinary.com/thasup/image/upload/v1740761387/central/avartar/zebra_fsgadj.jpg" />,
+    name: 'Marty',
+    occupation: 'The Zebra',
     testimonial:
-      "One of the standout features of this product is the exceptional customer support. In my experience, the team behind this product has been quick to respond and incredibly helpful. It's reassuring to know that they stand firmly behind their product.",
+      "I love how Stack Connect keeps adding new games. There's always something fresh to enjoy with friends!",
   },
   {
-    avatar: <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />,
-    name: 'Cindy Baker',
-    occupation: 'CTO',
+    avatar: <Avatar alt="Gloria" src="https://res.cloudinary.com/thasup/image/upload/v1740761387/central/avartar/hippo_nlxcld.jpg" />,
+    name: 'Gloria',
+    occupation: 'The Hippopotamus',
     testimonial:
-      'The level of simplicity and user-friendliness in this product has significantly simplified my life. I appreciate the creators for delivering a solution that not only meets but exceeds user expectations.',
+      'The collaborative games helped break the ice in our group — now we feel more connected than ever.',
   },
   {
-    avatar: <Avatar alt="Remy Sharp" src="/static/images/avatar/4.jpg" />,
-    name: 'Julia Stewart',
-    occupation: 'Senior Engineer',
+    avatar: <Avatar alt="Melman" src="https://res.cloudinary.com/thasup/image/upload/v1740761386/central/avartar/giraffe_y2onft.jpg" />,
+    name: 'Melman',
+    occupation: 'The Giraffe',
     testimonial:
-      "I appreciate the attention to detail in the design of this product. The small touches make a big difference, and it's evident that the creators focused on delivering a premium experience.",
+      "It's not just a game platform — it's a space where creativity, connection, and fun come together.",
   },
   {
-    avatar: <Avatar alt="Travis Howard" src="/static/images/avatar/5.jpg" />,
-    name: 'John Smith',
-    occupation: 'Product Designer',
+    avatar: <Avatar alt="King Julien" src="https://res.cloudinary.com/thasup/image/upload/v1740761387/central/avartar/lemur_kmbzsk.jpg" />,
+    name: 'King Julien',
+    occupation: 'King of Madagascar',
     testimonial:
-      "I've tried other similar products, but this one stands out for its innovative features. It's clear that the makers put a lot of thought into creating a solution that truly addresses user needs.",
+      "Stack Connect redefined how we play and connect. The endless expandability keeps us coming back for more.",
   },
   {
-    avatar: <Avatar alt="Cindy Baker" src="/static/images/avatar/6.jpg" />,
-    name: 'Daniel Wolf',
-    occupation: 'CDO',
+    avatar: <Avatar alt="Skipper" src="https://res.cloudinary.com/thasup/image/upload/v1740761386/central/avartar/penguin_sdfgkb.jpg" />,
+    name: 'Skipper',
+    occupation: 'The Captain',
     testimonial:
-      "The quality of this product exceeded my expectations. It's durable, well-designed, and built to last. Definitely worth the investment!",
+      "A must-have for any team or group looking to build trust and enjoy unforgettable experiences.",
   },
 ];
 
@@ -108,12 +108,11 @@ export default function Testimonials() {
           gutterBottom
           sx={{ color: 'text.primary' }}
         >
-          Testimonials
+          What Our Players Say
         </Typography>
         <Typography variant="body1" sx={{ color: 'text.secondary' }}>
-          See what our customers love about our products. Discover how we excel in
-          efficiency, durability, and satisfaction. Join us for quality, innovation,
-          and reliable support.
+          Discover how Stack Connect brings people closer, strengthens team bonds, and makes every game unforgettable. 
+          Join the community where fun meets connection.
         </Typography>
       </Box>
       <Grid container spacing={2}>
