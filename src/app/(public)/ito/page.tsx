@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { ROUTE } from "@/types/common";
+import { ROUTE } from "@/constants/common";
 import FrontLayout from "@/components/layouts/FrontLayout";
 
 export default function ItoPage() {

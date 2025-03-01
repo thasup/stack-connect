@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import Head from 'next/head';
 
-import { ROUTE } from "@/types/common";
+import { ROUTE } from "@/constants/common";
 
 export default function Favicon() {
   const [favicon, setFavicon] = useState('/favicon.ico');

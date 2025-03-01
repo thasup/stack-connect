@@ -7,7 +7,7 @@ import ColorLensIcon from '@mui/icons-material/ColorLens';
 import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
 
 import Content from "@/components/Content";
-import { ROUTE } from "@/types/common";
+import { ROUTE } from "@/constants/common";
 import RegisterContainer from "@/components/RegisterContainer";
 import LobbyLayout from "@/components/layouts/LobbyLayout";
 

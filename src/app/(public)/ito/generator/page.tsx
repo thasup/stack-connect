@@ -15,7 +15,7 @@ import {
 import { getGameData, resetGameData, shuffleArray } from "@/utils/helper";
 import { Participant } from "@/types/feelinks";
 import { useRouter } from "next/navigation";
-import { ROUTE } from "@/types/common";
+import { ROUTE } from "@/constants/common";
 import SendIcon from "@mui/icons-material/Send";
 import StatsContainer from "@/components/StatsContainer";
 import { ItoResponse } from "@/types/ito";

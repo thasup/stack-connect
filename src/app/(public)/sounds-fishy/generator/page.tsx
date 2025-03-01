@@ -19,7 +19,7 @@ import AudioPlayer from "@/components/AudioPlayer";
 import { useRouter } from "next/navigation";
 import { SoundsFishyResponse } from "@/types/sounds-fishy";
 import AnswerContainer from "../components/AnswerContainer";
-import { ROUTE } from "@/types/common";
+import { ROUTE } from "@/constants/common";
 import SendIcon from "@mui/icons-material/Send";
 import StatsContainer from "@/components/StatsContainer";
 

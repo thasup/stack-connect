@@ -8,7 +8,7 @@ import EmojiObjectsIcon from "@mui/icons-material/EmojiObjects";
 
 import Content from "@/components/Content";
 import RegisterContainer from "@/components/RegisterContainer";
-import { ROUTE } from "@/types/common";
+import { ROUTE } from "@/constants/common";
 import LobbyLayout from "@/components/layouts/LobbyLayout";
 
 const items = [
