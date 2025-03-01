@@ -8,48 +8,48 @@ import Grid from '@mui/material/Grid2';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import AutoFixHighRoundedIcon from '@mui/icons-material/AutoFixHighRounded';
-import ConstructionRoundedIcon from '@mui/icons-material/ConstructionRounded';
-import QueryStatsRoundedIcon from '@mui/icons-material/QueryStatsRounded';
-import SettingsSuggestRoundedIcon from '@mui/icons-material/SettingsSuggestRounded';
-import SupportAgentRoundedIcon from '@mui/icons-material/SupportAgentRounded';
+import AllInclusiveIcon from '@mui/icons-material/AllInclusive';
 import ThumbUpAltRoundedIcon from '@mui/icons-material/ThumbUpAltRounded';
+import InsightsIcon from '@mui/icons-material/Insights';
+import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
+import HandshakeIcon from '@mui/icons-material/Handshake';
 
 const items = [
   {
-    icon: <SettingsSuggestRoundedIcon />,
-    title: 'Adaptable performance',
+    icon: <SportsEsportsIcon />,
+    title: 'Dynamic Game Library',
     description:
-      'Our product effortlessly adjusts to your needs, boosting efficiency and simplifying your tasks.',
+      'Explore a diverse selection of ice-breaking and collaborative games — perfect for board game nights, sprint retrospectives, casual team gatherings, or virtual hangouts. Designed to suit any occasion and group size.',
   },
   {
-    icon: <ConstructionRoundedIcon />,
-    title: 'Built to last',
+    icon: <AllInclusiveIcon />,
+    title: 'Seamless Hybrid Experiences',
     description:
-      'Experience unmatched durability that goes above and beyond with lasting investment.',
-  },
-  {
-    icon: <ThumbUpAltRoundedIcon />,
-    title: 'Great user experience',
-    description:
-      'Integrate our product into your routine with an intuitive and easy-to-use interface.',
+      'Break down barriers between physical and online interactions with synchronized multiplayer games that deliver the same immersive experience, whether in the same room or remotely connecting.',
   },
   {
     icon: <AutoFixHighRoundedIcon />,
-    title: 'Innovative functionality',
+    title: 'AI-Enhanced Engagement',
     description:
-      'Stay ahead with features that set new standards, addressing your evolving needs better than the rest.',
+      'Personalized prompts and adaptive content ensure that no two sessions are ever the same, helping everyone feel included and stimulating creativity through dynamic storytelling and collaborative tasks.',
   },
   {
-    icon: <SupportAgentRoundedIcon />,
-    title: 'Reliable support',
+    icon: <HandshakeIcon />,
+    title: 'Inclusive for All',
     description:
-      'Count on our responsive customer support, offering assistance that goes beyond the purchase.',
+      'Designed for all personalities and group dynamics, from outgoing teams to those needing a little nudge to get conversations flowing.',
   },
   {
-    icon: <QueryStatsRoundedIcon />,
-    title: 'Precision in every detail',
+    icon: <ThumbUpAltRoundedIcon />,
+    title: 'Effortless Setup',
     description:
-      'Enjoy a meticulously crafted product where small touches make a significant impact on your overall experience.',
+      'Jump into games instantly with no technical barriers — just share a link and start playing, with built-in support for both desktop and mobile devices.',
+  },
+  {
+    icon: <InsightsIcon />,
+    title: 'Reliable and Ever-Evolving',
+    description:
+      'A top-notch platform built to scale with your team’s needs, constantly updated with new games, features, and improvements — ensuring there\'s always something fresh to explore.',
   },
 ];
 
@@ -83,9 +83,8 @@ export default function Highlights() {
             Highlights
           </Typography>
           <Typography variant="body1" sx={{ color: 'grey.400' }}>
-            Explore why our product stands out: adaptability, durability,
-            user-friendly design, and innovation. Enjoy reliable customer support and
-            precision in every detail.
+            Discover how Stack Connect redefines ice-breaking and team-bonding experiences, making every gathering 
+            — whether online or in-person — more engaging, meaningful, and unforgettable.
           </Typography>
         </Box>
         <Grid container spacing={2}>

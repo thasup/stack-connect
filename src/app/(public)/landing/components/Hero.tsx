@@ -3,8 +3,6 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
 
 export default function Hero() {
   return (
@@ -45,7 +43,7 @@ export default function Hero() {
               fontSize: "clamp(3rem, 10vw, 3.5rem)"
             }}
           >
-            Stack&nbsp;
+            STACK&nbsp;
             <Typography
               component="span"
               variant="h1"
@@ -57,7 +55,7 @@ export default function Hero() {
                 })
               })}
             >
-              Connect
+              CONNECT
             </Typography>
           </Typography>
           <Typography
@@ -106,69 +104,6 @@ export default function Hero() {
             })
           })}
         />
-
-        <Box
-          sx={{
-            position: "relative",
-            width: "100%",
-            height: "100vh", // Set the container height, adjust as needed
-            backgroundImage: "url(https://res.cloudinary.com/thasup/image/upload/v1740741437/central/landscape/alex-mesmer-kRMKxda6aM0-unsplash_ozttwe.jpg)", // Replace with your image URL
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            overflow: "hidden", // Prevent overflow for contents
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center"
-          }}
-        >
-          {/* Frosted background effect */}
-          <Box
-            sx={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              backdropFilter: "blur(10px)", // Frosted glass effect
-              backgroundColor: "rgba(255, 255, 255, 0.2)", // Semi-transparent white background
-              zIndex: 1
-            }}
-          />
-          <Card
-            sx={(theme) => ({
-              position: 'relative', // Ensure card is above the frosted background
-              alignSelf: "center",
-              marginTop: theme.spacing(8),
-              width: "100%",
-              height: 400,
-              borderRadius: theme.shape.borderRadius,
-              backgroundImage: `url(https://res.cloudinary.com/thasup/image/upload/v1740741437/central/landscape/alex-mesmer-kRMKxda6aM0-unsplash_ozttwe.jpg)`,
-              backgroundSize: "cover",
-              overflow: "hidden", // Ensuring rounded corners apply to the background
-              backdropFilter: "blur(10px)", // This creates the frosted glass effect
-              backgroundColor: "rgba(255, 255, 255, 0.2)", // Semi-transparent white background
-              boxShadow: 3, // Base shadow
-              transition: "transform 0.5s ease, box-shadow 0.3s ease",
-              [theme.breakpoints.up("sm")]: {
-                marginTop: theme.spacing(10),
-                height: 700
-              },
-              "&:hover": {
-                transform: "scale(1.01)", // Scale up slightly and move up
-                boxShadow: 8 // Increase shadow on hover
-              }
-            })}
-          >
-            <CardContent>
-              <Typography variant="h5" component="div">
-                Elegant Shadow Card
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                This is a card with an elegant shadow effect.
-              </Typography>
-            </CardContent>
-          </Card>
-        </Box>
       </Container>
     </Box>
   );
