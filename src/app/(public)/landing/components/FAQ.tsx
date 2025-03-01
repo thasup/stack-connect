@@ -5,9 +5,36 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
+const items = [
+  {
+    id: 'panel1',
+    question: 'What is Stack Connect and how can it help my team or group activity?',
+    answer: 'Stack Connect is an interactive platform designed to break the ice and build connections through collaborative games. Whether you\'re hosting a physical team gathering, sprint retrospective, or online meeting, our games foster engagement and fun conversations.',
+  },
+  {
+    id: 'panel2',
+    question: 'Do I need to create an account to start playing?',
+    answer: 'You can jump right in without an account for quick sessions! However, creating an account unlocks custom game settings, game history tracking, and personalized game recommendations.',
+  },
+  {
+    id: 'panel3',
+    question: 'Does Stack Connect support hybrid teams or remote participants?',
+    answer: 'Yes! Our online mode is built for seamless hybrid sessions, allowing both in-room and remote participants to interact through the same game interface in real-time.',
+  },
+  {
+    id: 'panel4',
+    question: 'Is Stack Connect free to use?',
+    answer: 'Stack Connect is free to use for most games and features. As the platform grows and traffic increases, some advanced features or higher traffic usage may be subject to limitations or premium access to ensure sustainable service.',
+  },
+  {
+    id: 'panel5',
+    question: 'Is there a limit to how many players can join a game?',
+    answer: 'Stack Connect is designed to accommodate both small teams and larger groups. While there are no fixed limits for now, player capacity may be adjusted in the future to maintain a smooth user experience as the platform scales.',
+  },
+];
 
 export default function FAQ() {
   const [expanded, setExpanded] = React.useState<string[]>([]);
@@ -46,108 +73,31 @@ export default function FAQ() {
         Frequently asked questions
       </Typography>
       <Box sx={{ width: '100%' }}>
-        <Accordion
-          expanded={expanded.includes('panel1')}
-          onChange={handleChange('panel1')}
-        >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1d-content"
-            id="panel1d-header"
+        {items.map((item) => (
+          <Accordion
+            key={item.id}
+            expanded={expanded.includes(item.id)}
+            onChange={handleChange(item.id)}
           >
-            <Typography component="span" variant="subtitle2">
-              How do I contact customer support if I have a question or issue?
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography
-              variant="body2"
-              gutterBottom
-              sx={{ maxWidth: { sm: '100%', md: '70%' } }}
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls={`${item.id}d-content`}
+              id={`${item.id}d-header`}
             >
-              You can reach our customer support team by emailing&nbsp;
-              <Link href="mailto:support@email.com">support@email.com</Link>
-              &nbsp;or calling our toll-free number. We&apos;re here to assist you
-              promptly.
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion
-          expanded={expanded.includes('panel2')}
-          onChange={handleChange('panel2')}
-        >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel2d-content"
-            id="panel2d-header"
-          >
-            <Typography component="span" variant="subtitle2">
-              Can I return the product if it doesn&apos;t meet my expectations?
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography
-              variant="body2"
-              gutterBottom
-              sx={{ maxWidth: { sm: '100%', md: '70%' } }}
-            >
-              Absolutely! We offer a hassle-free return policy. If you&apos;re not
-              completely satisfied, you can return the product within [number of
-              days] days for a full refund or exchange.
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion
-          expanded={expanded.includes('panel3')}
-          onChange={handleChange('panel3')}
-        >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel3d-content"
-            id="panel3d-header"
-          >
-            <Typography component="span" variant="subtitle2">
-              What makes your product stand out from others in the market?
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography
-              variant="body2"
-              gutterBottom
-              sx={{ maxWidth: { sm: '100%', md: '70%' } }}
-            >
-              Our product distinguishes itself through its adaptability, durability,
-              and innovative features. We prioritize user satisfaction and
-              continually strive to exceed expectations in every aspect.
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion
-          expanded={expanded.includes('panel4')}
-          onChange={handleChange('panel4')}
-        >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel4d-content"
-            id="panel4d-header"
-          >
-            <Typography component="span" variant="subtitle2">
-              Is there a warranty on the product, and what does it cover?
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography
-              variant="body2"
-              gutterBottom
-              sx={{ maxWidth: { sm: '100%', md: '70%' } }}
-            >
-              Yes, our product comes with a [length of warranty] warranty. It covers
-              defects in materials and workmanship. If you encounter any issues
-              covered by the warranty, please contact our customer support for
-              assistance.
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
+              <Typography component="span" variant="subtitle1">
+                {item.question}
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography
+                variant="body2"
+                gutterBottom
+              >
+                {item.answer}
+              </Typography>
+            </AccordionDetails>
+          </Accordion>
+        ))}
       </Box>
     </Container>
   );
