@@ -3,7 +3,12 @@ export const ROUTE = {
 		NAME: 'home',
 		PATH: '/',
 		TITLE: 'Home',
-	},
+  },
+  GAMES: {
+    NAME: 'games',
+    PATH: '/games',
+    TITLE: 'Game Library',
+  },
   FEELINKS: {
     NAME: 'feelinks',
     PATH: '/feelinks',
