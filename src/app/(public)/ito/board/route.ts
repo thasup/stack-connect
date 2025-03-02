@@ -1,4 +1,4 @@
-import { ROUTE } from '@/types/common';
+import { ROUTE } from '@/constants/common';
 import { redirect } from 'next/navigation';
 
 export async function GET() {
