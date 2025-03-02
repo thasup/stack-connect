@@ -9,6 +9,16 @@ export const ROUTE = {
     PATH: '/games',
     TITLE: 'Game Library',
   },
+  RESOURCES: {
+    NAME: 'resources',
+    PATH: '/resources',
+    TITLE: 'Resources',
+  },
+  CONTACT: {
+    NAME: 'contact',
+    PATH: '/contact',
+    TITLE: 'Contact',
+  },
   FEELINKS: {
     NAME: 'feelinks',
     PATH: '/feelinks',
