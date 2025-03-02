@@ -1,92 +1,35 @@
-'use client';
+"use client";
 
-import { Container, CssBaseline, Stack, Typography } from "@mui/material";
-import Link from "next/link";
-
+import * as React from "react";
+import Divider from "@mui/material/Divider";
+import Hero from "@/app/components/Hero";
+import LogoCollection from "@/app/components/LogoCollection";
+import Highlights from "@/app/components/Highlights";
+import Pricing from "@/app/components/Pricing";
+import Features from "@/app/components/Features";
+import Testimonials from "@/app/components/Testimonials";
+import FAQ from "@/app/components/FAQ";
+import Footer from "@/app/components/Footer";
 import AppTheme from "@/components/shared-theme/AppTheme";
-import AppAppBar from '@/components/AppAppBar';
 
-const links = [
-  {
-    href: "/feelinks",
-    title: "💖 Feelinks"
-  },
-  {
-    href: "/sounds-fishy",
-    title: "🐟 Sounds Fishy"
-  },
-  {
-    href: "/ito",
-    title: "🎲 ITO"
-  }
-];
-
-export default function Home(props: { disableCustomTheme?: boolean }) {
+export default function LandingPage() {
   return (
-    <AppTheme {...props}>
-      <CssBaseline enableColorScheme />
-      <AppAppBar />
-      <Stack
-        direction="column"
-        component="main"
-        sx={[
-          {
-            justifyContent: "center",
-            height: "calc((1 - var(--template-frame-height, 0)) * 100%)",
-            marginTop: "max(40px - var(--template-frame-height, 0px), 0px)",
-            minHeight: "100%"
-          }
-        ]}
-      >
-        <Stack
-          direction={{ xs: "column-reverse", md: "row" }}
-          sx={{
-            justifyContent: "center",
-            gap: { xs: 6, sm: 12 },
-            p: 2
-          }}
-        >
-          <Stack
-            direction={{ xs: "column-reverse", md: "row" }}
-            sx={{
-              justifyContent: "flex-start",
-              gap: { xs: 6, sm: 12 },
-              p: { xs: 2, sm: 4 },
-              width: "100%"
-            }}
-          >
-            <Stack direction="column" gap={2}>
-              <Typography variant="h4">Select a game to play 🚀</Typography>
-              <Stack direction="row" spacing={4} flexWrap="wrap">
-                {links.map((link, index) => (
-                  <Link key={index} href={link.href}>
-                    <Container
-                      maxWidth="lg"
-                      sx={{
-                        mt: 4,
-                        p: 4,
-                        border: "1px solid white",
-                        borderRadius: "8px",
-                        minWidth: "200px",
-                        textAlign: "center",
-                        transition: "all 0.3s ease-in-out",
-                        "&:hover": {
-                          boxShadow: "0 0 20px 0 rgba(0, 191, 255, 0.8)",
-                          transform: "scale(1.05)"
-                        }
-                      }}
-                    >
-                      <Stack direction="column" gap={2}>
-                        <Typography variant="h6">{link.title}</Typography>
-                      </Stack>
-                    </Container>
-                  </Link>
-                ))}
-              </Stack>
-            </Stack>
-          </Stack>
-        </Stack>
-      </Stack>
+    <AppTheme>
+      <Hero />
+      <div>
+        <LogoCollection />
+        <Features />
+        <Divider />
+        <Testimonials />
+        <Divider />
+        <Highlights />
+        <Divider />
+        <Pricing />
+        <Divider />
+        <FAQ />
+        <Divider />
+        <Footer />
+      </div>
     </AppTheme>
   );
 }

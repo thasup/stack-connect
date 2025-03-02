@@ -7,7 +7,8 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 
 import theme from "@/theme";
 import "./globals.css";
-// import Favicon from "@/components/Favicon";
+import MainLayout from "@/components/layouts/MainLayout";
+import Favicon from "@/app/components/Favicon";
 
 const nunito = Nunito({
   weight: ["300", "400", "500", "700"],
@@ -21,6 +22,19 @@ export const metadata: Metadata = {
   description:
     "Stack Connect is your go-to platform for collaborative, creative, and team-building games. Play with friends, strengthen trust, and unlock new levels of fun and connection.",
   creator: "thasup",
+  icons: {
+    icon: [
+      {
+        url: "/stack-connect-logo.svg",
+        type: "image/svg+xml"
+      },
+      {
+        url: "/stack-connect-logo.svg",
+        type: "image/svg+xml",
+        rel: "shortcut icon"
+      }
+    ]
+  },
   keywords: [
     "Stack Connect",
     "Play",
@@ -45,8 +59,10 @@ export default function RootLayout({
       <body className={`${nunito.variable} antialiased`}>
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
-            {/* <Favicon /> */}
-            {children}
+            <Favicon />
+            <MainLayout>
+              {children}
+            </MainLayout>
             <GoogleAnalytics gaId="G-D0ZVT7CRGV" />
             <Analytics />
           </ThemeProvider>
