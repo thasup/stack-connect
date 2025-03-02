@@ -15,7 +15,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 
 import ColorModeIconDropdown from "@/components/shared-theme/ColorModeIconDropdown";
-import Sitemark from "@/components/SitemarkIcon";
+import StackConnectLogo from "@/components/StackConnectLogo";
 import { ROUTE } from "@/constants/common";
 import Link from "next/link";
 
@@ -57,7 +57,7 @@ export default function AppAppBar() {
         >
           <Box sx={{ flexGrow: 1, display: "flex", alignItems: "center", px: 0 }}>
             <Link href={ROUTE.HOME.PATH}>
-              <Sitemark hasTitle />
+              <StackConnectLogo hasTitle />
             </Link>
             <Box sx={{ display: { xs: "none", md: "flex" } }}>
               <Button variant="text" color="info" size="small" href={ROUTE.GAMES.PATH}>

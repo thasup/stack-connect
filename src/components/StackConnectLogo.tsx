@@ -1,7 +1,7 @@
 import * as React from "react";
 import SvgIcon from "@mui/material/SvgIcon";
 
-export default function SitemarkIcon({ hasTitle = false }: { hasTitle?: boolean }) {
+export default function StackConnectLogo({ hasTitle = false }: { hasTitle?: boolean }) {
   return (
     <>
       {hasTitle ? (
@@ -25,13 +25,13 @@ export default function SitemarkIcon({ hasTitle = false }: { hasTitle?: boolean 
               <filter x="0%" y="0%" width="100%" height="100%" id="32ba1d278e">
                 <feColorMatrix
                   values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0"
-                  color-interpolation-filters="sRGB"
+                  colorInterpolationFilters="sRGB"
                 />
               </filter>
               <filter x="0%" y="0%" width="100%" height="100%" id="36443d1c53">
                 <feColorMatrix
                   values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0.2126 0.7152 0.0722 0 0"
-                  color-interpolation-filters="sRGB"
+                  colorInterpolationFilters="sRGB"
                 />
               </filter>
               <image
