@@ -3,6 +3,13 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import HeroCarousel from "./HeroCarousel";
+
+const images = [
+  "https://res.cloudinary.com/thasup/image/upload/v1740769837/stack%20connect/ito-masked-banner_swbzhi.jpg",
+  "https://res.cloudinary.com/thasup/image/upload/v1740776549/stack%20connect/sounds-fishy-masked-banner_d0baz6.jpg",
+  "https://res.cloudinary.com/thasup/image/upload/v1740776548/stack%20connect/feelinks-masked-banner_fwrdky.jpg",
+];
 
 export default function Hero() {
   return (
@@ -78,32 +85,7 @@ export default function Hero() {
             friends, strengthen trust, and unlock new levels of fun and connection.
           </Typography>
         </Stack>
-        <Box
-          id="image"
-          sx={(theme) => ({
-            alignSelf: "center",
-            width: "100%",
-            height: 400,
-            marginTop: theme.spacing(8),
-            borderRadius: theme.shape.borderRadius,
-            outline: "6px solid",
-            outlineColor: "hsla(220, 25%, 80%, 0.2)",
-            border: "1px solid",
-            borderColor: theme.palette.grey[200],
-            boxShadow: "0 0 12px 8px hsla(220, 25%, 80%, 0.2)",
-            backgroundImage: `url(https://res.cloudinary.com/thasup/image/upload/v1740741437/central/landscape/alex-mesmer-kRMKxda6aM0-unsplash_ozttwe.jpg)`,
-            backgroundSize: "cover",
-            [theme.breakpoints.up("sm")]: {
-              marginTop: theme.spacing(10),
-              height: 700
-            },
-            ...theme.applyStyles("dark", {
-              boxShadow: "0 0 24px 12px hsla(210, 100%, 25%, 0.2)",
-              outlineColor: "hsla(220, 20%, 42%, 0.1)",
-              borderColor: theme.palette.grey[700]
-            })
-          })}
-        />
+        <HeroCarousel images={images} />
       </Container>
     </Box>
   );

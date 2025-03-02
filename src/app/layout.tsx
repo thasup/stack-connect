@@ -6,9 +6,13 @@ import { Analytics } from "@vercel/analytics/next";
 import { GoogleAnalytics } from "@next/third-parties/google";
 
 import theme from "@/theme";
-import "./globals.css";
 import MainLayout from "@/components/layouts/MainLayout";
 import Favicon from "@/app/components/Favicon";
+
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/autoplay';
+import "./globals.css";
 
 const nunito = Nunito({
   weight: ["300", "400", "500", "700"],
