@@ -19,8 +19,8 @@ export default function FrontLayout({
   generatorLink
 }: FrontLayoutProps) {
   const links = [
-    { link: generatorLink, name: "Generator" },
-    { link: gameLink, name: "Play Game" }
+    { link: generatorLink, name: "Offline Mode" },
+    { link: gameLink, name: "Online Mode" }
   ];
   return (
     <Box
@@ -67,16 +67,6 @@ export default function FrontLayout({
             aspectRatio: 16 / 9,
             width: "90%"
           }
-          // "&:before": {
-          //   content: '""',
-          //   position: "absolute",
-          //   top: 0,
-          //   left: 0,
-          //   right: 0,
-          //   bottom: 0,
-          //   backgroundColor: "rgba(0, 0, 0, 0.25)", // Black overlay with 50% opacity
-          //   borderRadius: theme.shape.borderRadius
-          // }
         })}
       >
         <CardContent sx={{ height: "100%", padding: "24px" }}>
