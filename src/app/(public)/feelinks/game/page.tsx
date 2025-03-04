@@ -89,7 +89,7 @@ export default function FeelinksGamePage() {
   }, [selectedCategory]);
 
   return (
-    <Container maxWidth="lg" sx={{ mt: 4 }}>
+    <Container maxWidth="lg" sx={{ mt: 13.5 }}>
       <Stack spacing={2}>
         {/* Header Section */}
         <Stack spacing={1}>
