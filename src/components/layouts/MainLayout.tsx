@@ -1,4 +1,4 @@
-import AppAppBar from '@/components/AppAppBar';
+import AppAppBar from "@/components/AppAppBar";
 
 interface MainLayoutProps {
   children: React.ReactNode;

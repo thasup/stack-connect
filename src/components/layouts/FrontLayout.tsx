@@ -1,4 +1,7 @@
-import { Box, Card, CardContent, Link, Stack, Typography } from "@mui/material";
+'use client';
+
+import { useState } from "react";
+import { Box, Card, CardContent, CircularProgress, Link, Stack, Typography } from "@mui/material";
 
 import FrostGlassBox from "@/components/FrostGlassBox";
 
@@ -18,10 +21,18 @@ export default function FrontLayout({
   gameLink,
   generatorLink
 }: FrontLayoutProps) {
+  const [loadingPath, setLoadingPath] = useState<string | null>(null);
+
   const links = [
     { link: generatorLink, name: "Offline Mode" },
     { link: gameLink, name: "Online Mode" }
   ];
+
+  const handleClick = (path: string) => {
+    setLoadingPath(path);
+    window.location.href = path;
+  };
+
   return (
     <Box
       sx={{
@@ -87,31 +98,41 @@ export default function FrontLayout({
                   item.link && (
                     <Link
                       key={index}
-                      href={item.link}
+                      component="button"
+                      onClick={() => handleClick(item.link!)}
                       sx={(theme) => ({
+                        width: "200px",
                         borderRadius: theme.shape.borderRadius,
                         textDecoration: "none",
                         transition: "transform 0.5s ease, box-shadow 0.3s ease",
+                        cursor: loadingPath === item.link ? "not-allowed" : "pointer",
+                        border: "none",
+                        background: "none",
+                        padding: 0,
                         "&:hover": {
-                          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1)",
-                          transform: "scale(1.005)"
+                          boxShadow: loadingPath === item.link ? "none" : "0 4px 8px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1)",
+                          transform: loadingPath === item.link ? "none" : "scale(1.005)"
                         }
                       })}
                     >
                       <FrostGlassBox>
-                        <Typography
-                          gutterBottom
-                          variant="h6"
-                          sx={{
-                            color: "white",
-                            textAlign: "center",
-                            textTransform: "uppercase",
-                            fontWeight: "bold",
-                            marginBottom: 0
-                          }}
-                        >
-                          {item.name}
-                        </Typography>
+                        {loadingPath === item.link ? (
+                          <CircularProgress size={24} sx={{ color: "white" }} />
+                        ) : (
+                          <Typography
+                            gutterBottom
+                            variant="h6"
+                            sx={{
+                              color: "white",
+                              textAlign: "center",
+                              textTransform: "uppercase",
+                              fontWeight: "bold",
+                              marginBottom: 0
+                            }}
+                          >
+                            {item.name}
+                          </Typography>
+                        )}
                       </FrostGlassBox>
                     </Link>
                   )
