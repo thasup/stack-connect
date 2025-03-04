@@ -20,7 +20,14 @@ export default function Content(props: ContentProps) {
   return (
     <Stack sx={{ flexDirection: "column", alignSelf: "center", gap: 4, width: "100%" }}>
       <Box sx={{ display: { xs: "none", md: "flex" } }}>
-        <Typography variant="h4" gutterBottom sx={{ fontWeight: "medium" }}>
+        <Typography
+          variant="h4"
+          gutterBottom
+          sx={{
+            fontWeight: "medium",
+            textShadow: "0 2px 4px rgba(0,0,0,0.6), 0 4px 8px rgba(0,0,0,0.4), 0 6px 12px rgba(0,0,0,0.3)"
+          }}
+        >
           {title}
         </Typography>
       </Box>

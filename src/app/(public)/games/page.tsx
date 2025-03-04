@@ -23,13 +23,12 @@ export default function GamesPage() {
   return (
     <Stack
       direction="column"
-      component="main"
       sx={[
         {
           justifyContent: "center",
           height: "calc((1 - var(--template-frame-height, 0)) * 100%)",
-          marginTop: "max(40px - var(--template-frame-height, 0px), 0px)",
-          minHeight: "100%"
+          minHeight: "100%",
+          width: "100%"
         }
       ]}
     >
@@ -51,8 +50,8 @@ export default function GamesPage() {
           }}
         >
           <Stack direction="column" gap={2}>
-            <Typography variant="h4">Select a game to play 🚀</Typography>
-            <Stack direction="row" spacing={4} flexWrap="wrap">
+            <Typography variant="h5" sx={{ typography: { md: 'h4' } }}>Select a game to play 🚀</Typography>
+            <Stack direction={{ xs: "column", md: "row" }} spacing={4} flexWrap="wrap">
               {links.map((link, index) => (
                 <Link key={index} href={link.href}>
                   <Container

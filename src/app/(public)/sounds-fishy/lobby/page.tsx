@@ -9,7 +9,6 @@ import EmojiObjectsIcon from "@mui/icons-material/EmojiObjects";
 import Content from "@/components/Content";
 import RegisterContainer from "@/components/RegisterContainer";
 import { ROUTE } from "@/constants/common";
-import LobbyLayout from "@/components/layouts/LobbyLayout";
 
 const items = [
   {
@@ -73,9 +72,9 @@ const items = [
 
 export default function SoundsFishyLobbyPage() {
   return (
-    <LobbyLayout backgroundImage="https://res.cloudinary.com/thasup/image/upload/v1740741434/central/landscape/tim-stief-YFFGkE3y4F8-unsplash_cbbwzg.jpg">
+    <>
       <Content title="🐟 Sounds Fishy" items={items} />
       <RegisterContainer link={ROUTE.SOUNDS_FISHY.SUB_PAGE.GAME.PATH} />
-    </LobbyLayout>
+    </>
   );
 }

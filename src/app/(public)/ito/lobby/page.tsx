@@ -9,7 +9,6 @@ import PsychologyAltIcon from '@mui/icons-material/PsychologyAlt';
 import Content from "@/components/Content";
 import RegisterContainer from "@/components/RegisterContainer";
 import { ROUTE } from "@/constants/common";
-import LobbyLayout from "@/components/layouts/LobbyLayout";
 
 const items = [
   {
@@ -39,12 +38,12 @@ const items = [
 
 export default function ItoLobbyPage() {
   return (
-    <LobbyLayout backgroundImage="https://res.cloudinary.com/thasup/image/upload/v1740741437/central/landscape/alex-mesmer-kRMKxda6aM0-unsplash_ozttwe.jpg">
+    <>
       <Content
         title="🎲 ITO"
         items={items}
       />
       <RegisterContainer link={ROUTE.ITO.SUB_PAGE.GAME.PATH} />
-    </LobbyLayout>
+    </>
   );
 }

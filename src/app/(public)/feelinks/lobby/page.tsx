@@ -9,7 +9,6 @@ import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
 import Content from "@/components/Content";
 import { ROUTE } from "@/constants/common";
 import RegisterContainer from "@/components/RegisterContainer";
-import LobbyLayout from "@/components/layouts/LobbyLayout";
 
 const items = [
   {
@@ -40,12 +39,12 @@ const items = [
 
 export default function Feelinks() {
   return (
-    <LobbyLayout backgroundImage="https://res.cloudinary.com/thasup/image/upload/v1740741438/central/landscape/justin-bisson-beck-YwFHhIgG77M-unsplash_iljp5o.jpg">
+    <>
       <Content
         title="💖 Feelinks"
         items={items}
       />
       <RegisterContainer link={ROUTE.FEELINKS.SUB_PAGE.BOARD.PATH} />
-    </LobbyLayout>
+    </>
   );
 }
